@@ -28,12 +28,12 @@
           -
             src: 'sources/eh1.js'
             name: '{{ lookup("env","EVENT_HANDLER_1_NAME") }}'
-            channels: 'eh-channel-1'
+            channels: '{{ lookup("env","EVENT_HANDLER_1_CHANNEL_NAME") }}'
             event: 'js-before-publish'
           -
             src: 'sources/eh2.js'
             name: '{{ lookup("env","EVENT_HANDLER_2_NAME") }}'
-            channels: 'eh-channel-2'
+            channels: '{{ lookup("env","EVENT_HANDLER_2_CHANNEL_NAME") }}'
             event: 'js-before-publish'
     - name: Start '{{ lookup("env","BLOCK_NAME") }}' block
       ignore_errors: True

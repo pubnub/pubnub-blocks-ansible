@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding: utf-8
-from subprocess import check_call
 from subprocess import Popen, PIPE
+import random
 import time
 import sys
 import os
@@ -88,8 +88,10 @@ print('Python version: {0}{1}{2}'.format(TextStyle.BOLD, version, TextStyle.END)
 os.environ['BAD_BLOCK_NAME'] = 'Ansible Block v{0}'.format(version)
 os.environ['BLOCK_NAME'] = 'Ansible block v{0}'.format(version).replace('.', '')
 os.environ['NEW_BLOCK_NAME'] = os.environ['BLOCK_NAME'] + '-changed'
-os.environ['EVENT_HANDLER_1_NAME'] = 'Event Handler 1-{0}'.format(version).replace('.', '')
-os.environ['EVENT_HANDLER_2_NAME'] = 'Event Handler 2-{0}'.format(version).replace('.', '')
+os.environ['EVENT_HANDLER_1_NAME'] = 'Event Handler 1-{0}-{1}'.format(version, random.random()).replace('.', '')
+os.environ['EVENT_HANDLER_2_NAME'] = 'Event Handler 2-{0}-{1}'.format(version, random.random()).replace('.', '')
+os.environ['EVENT_HANDLER_1_CHANNEL_NAME'] = 'eh-channel-1-{0}'.format(random.random()).replace('.', '')
+os.environ['EVENT_HANDLER_2_CHANNEL_NAME'] = 'eh-channel-1-{0}'.format(random.random()).replace('.', '')
 expected_pass = 'expected to {0}{1}pass{2}'.format(TextColor.YELLOW, TextStyle.UNDERLINE, TextStyle.END)
 expected_fail = 'expected to {0}{1}fail{2}'.format(TextColor.RED, TextStyle.UNDERLINE, TextStyle.END)
 expected_ignore = 'expected to {0}{1}no changes{2}'.format(TextColor.GREEN, TextStyle.UNDERLINE, TextStyle.END)
