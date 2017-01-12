@@ -34,6 +34,8 @@ description:
 author:
   - PubNub <support@pubnub.com> (@pubnub)
   - Sergey Mamontov <sergey@pubnub.com> (@parfeon)
+requirements:
+  - "python >= 2.7"
 options:
   email:
     description:
