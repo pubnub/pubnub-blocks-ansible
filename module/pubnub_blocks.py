@@ -101,7 +101,7 @@ options:
         with certificates on it and this will cause problems to call PubNub REST API.
       - If check should be ignored C(False) should be passed to this parameter.
     required: false
-    defaulr: true
+    default: true
 '''
 
 EXAMPLES = '''
