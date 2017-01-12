@@ -1,6 +1,6 @@
 # PubNub BLOCKS module for [Ansible](https://www.ansible.com)
 
-[![Build Status](https://travis-ci.com/pubnub/pubnub-blocks-ansible.svg?token=TdtszNJ6Stg2gW33kobQ&branch=master)](https://travis-ci.com/pubnub/pubnub-blocks-ansible)
+[![Build Status](https://travis-ci.org/pubnub/pubnub-blocks-ansible.svg?branch=master)](https://travis-ci.com/pubnub/pubnub-blocks-ansible)
 
 ## Description
 This module provide ability to manage PubNub blocks during deployment automation process with [Ansible](https://www.ansible.com).  
