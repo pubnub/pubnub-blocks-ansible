@@ -1,0 +1,65 @@
+---
+- name: Test PubNub Blocks module for Ansible.
+  hosts: blocks
+  gather_facts: False
+  tasks:
+    - name: Remove two event handlers from '{{ lookup("env","BLOCK_NAME") }}'
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        email: '{{ lookup("env","PUBNUB_USER") }}'
+        pwd: '{{ lookup("env","PUBNUB_PASS") }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: present
+        event_handlers:
+          -
+            name: '{{ lookup("env","EVENT_HANDLER_1_NAME") }}'
+            state: absent
+          -
+            name: '{{ lookup("env","EVENT_HANDLER_2_NAME") }}'
+            state: absent
+    - name: Remove two event handlers from '{{ lookup("env","BLOCK_NAME") }}' (no changes)
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        cache: '{{ module_cache | default({}) }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: present
+        event_handlers:
+          -
+            name: '{{ lookup("env","EVENT_HANDLER_1_NAME") }}'
+            state: absent
+          -
+            name: '{{ lookup("env","EVENT_HANDLER_2_NAME") }}'
+            state: absent
+    - name: Stop '{{ lookup("env","BLOCK_NAME") }}' block (no changes)
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        cache: '{{ module_cache | default({}) }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: stop
+    - name: Delete '{{ lookup("env","BLOCK_NAME") }}'
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        cache: '{{ module_cache | default({}) }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: absent
+    - name: Delete '{{ lookup("env","BLOCK_NAME") }}' (no changes)
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        cache: '{{ module_cache | default({}) }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: absent

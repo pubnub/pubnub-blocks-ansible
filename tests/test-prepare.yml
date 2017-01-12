@@ -1,0 +1,13 @@
+---
+- name: Test PubNub Blocks module for Ansible.
+  hosts: blocks
+  gather_facts: False
+  tasks:
+    - name: Delete '{{ lookup("env","BLOCK_NAME") }}'
+      pubnub_blocks:
+        email: '{{ lookup("env","PUBNUB_USER") }}'
+        pwd: '{{ lookup("env","PUBNUB_PASS") }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: absent

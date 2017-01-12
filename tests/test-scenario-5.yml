@@ -1,0 +1,79 @@
+---
+- name: Test PubNub Blocks module for Ansible.
+  hosts: blocks
+  gather_facts: False
+  tasks:
+    - name: Create '{{ lookup("env","BLOCK_NAME") }}'
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        email: '{{ lookup("env","PUBNUB_USER") }}'
+        pwd: '{{ lookup("env","PUBNUB_PASS") }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: present
+    - name: Add two event handlers to '{{ lookup("env","BLOCK_NAME") }}'
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        cache: '{{ module_cache | default({}) }}'
+        email: '{{ lookup("env","PUBNUB_USER") }}'
+        pwd: '{{ lookup("env","PUBNUB_PASS") }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: present
+        event_handlers:
+          -
+            src: 'sources/eh1.js'
+            name: '{{ lookup("env","EVENT_HANDLER_1_NAME") }}'
+            channels: 'eh-channel-1'
+            event: 'js-before-publish'
+          -
+            src: 'sources/eh2.js'
+            name: '{{ lookup("env","EVENT_HANDLER_2_NAME") }}'
+            channels: 'eh-channel-2'
+            event: 'js-before-publish'
+    - name: Start '{{ lookup("env","BLOCK_NAME") }}' block
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        cache: '{{ module_cache | default({}) }}'
+        email: '{{ lookup("env","PUBNUB_USER") }}'
+        pwd: '{{ lookup("env","PUBNUB_PASS") }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: start
+    - name: Start '{{ lookup("env","BLOCK_NAME") }}' block (no changes)
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        cache: '{{ module_cache | default({}) }}'
+        email: '{{ lookup("env","PUBNUB_USER") }}'
+        pwd: '{{ lookup("env","PUBNUB_PASS") }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: start
+    - name: Delete '{{ lookup("env","BLOCK_NAME") }}'
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        email: '{{ lookup("env","PUBNUB_USER") }}'
+        pwd: '{{ lookup("env","PUBNUB_PASS") }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: absent
+    - name: Delete '{{ lookup("env","BLOCK_NAME") }}' (no changes)
+      ignore_errors: True
+      register: module_cache
+      pubnub_blocks:
+        email: '{{ lookup("env","PUBNUB_USER") }}'
+        pwd: '{{ lookup("env","PUBNUB_PASS") }}'
+        application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
+        keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
+        block: '{{ lookup("env","BLOCK_NAME") }}'
+        state: absent
