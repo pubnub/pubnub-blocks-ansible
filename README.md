@@ -18,7 +18,7 @@ At this moment module is not part of [Ansible](https://www.ansible.com) and shou
 1. Download module from [repository](https://raw.githubusercontent.com/pubnub/pubnub-blocks-ansible/master/module/pubnub_blocks.py).  
 2. Place it into Ansible modules directory (or directory for custom modules).  
   1. If you already have directory where custom modules is stored please add [pubnub_blocks.py](https://raw.githubusercontent.com/pubnub/pubnub-blocks-ansible/master/module/pubnub_blocks.py) there.  
-  2. If this is first your custom module, you need to find and update `ansible.cfg` file to include `library` assignment in _[defaul]_ section like [here](https://raw.githubusercontent.com/pubnub/pubnub-blocks-ansible/master/ansible.cfg) (but make sure to pass proper path to variable).  
+  2. If this is first your custom module, you need to find and update `ansible.cfg` file to include `library` assignment in _[default]_ section like [here](https://raw.githubusercontent.com/pubnub/pubnub-blocks-ansible/master/ansible.cfg) (but make sure to pass proper path to variable).  
   3. It is also possible to place custom modules in `library` directory which is on same level with `playbook.yml` file (which is used to run automated integration process).  
 
 After module placed into location about which [Ansible](https://www.ansible.com) is aware we can start adding PubNub BLOCKS management with playbook.
@@ -37,10 +37,10 @@ Each module call contain information identical for every scenario:
 ```yml
 pubnub_blocks:
   email: '{{ email }}'
-  pwd: '{{ password }}'
+  password: '{{ password }}'
   application: '{{ app_name }}'
   keyset: '{{ keyset_name }}'
-  block: '{{ block_name }}'
+  name: '{{ block_name }}'
   description: 'Some new block'
 ```  
 or next in case if _caching_ has been used:
@@ -49,7 +49,7 @@ pubnub_blocks:
   cache: '{{ module_cache }}'
   application: '{{ app_name }}'
   keyset: '{{ keyset_name }}'
-  block: '{{ block_name }}'
+  name: '{{ block_name }}'
 ```  
 
 ### Create and delete blocks  
@@ -59,20 +59,20 @@ Here is an example of single block creation:
 ```yml
 pubnub_blocks:
   email: '{{ email }}'
-  pwd: '{{ password }}'
+  password: '{{ password }}'
   application: '{{ app_name }}'
   keyset: '{{ keyset_name }}'
-  block: 'Test Block 1'
+  name: 'Test Block 1'
   description: 'This is test block'
 ```  
 To remove block:  
 ```yml
 pubnub_blocks:
   email: '{{ email }}'
-  pwd: '{{ password }}'
+  password: '{{ password }}'
   application: '{{ app_name }}'
   keyset: '{{ keyset_name }}'
-  block: 'Test Block 1'
+  name: 'Test Block 1'
   state: absent
 ```  
 
@@ -85,10 +85,10 @@ Here is an example of event handlers creation:
 ```yml
 pubnub_blocks:
   email: '{{ email }}'
-  pwd: '{{ password }}'
+  password: '{{ password }}'
   application: '{{ app_name }}'
   keyset: '{{ keyset_name }}'
-  block: 'Test Block 1'
+  name: 'Test Block 1'
   event_handlers:
     -
       src: 'sources/eh1.js'
@@ -105,10 +105,10 @@ To remove any handler **absent** should be passed for it state:
 ```yml
 pubnub_blocks:
   email: '{{ email }}'
-  pwd: '{{ password }}'
+  password: '{{ password }}'
   application: '{{ app_name }}'
   keyset: '{{ keyset_name }}'
-  block: 'Test Block 1'
+  name: 'Test Block 1'
   event_handlers:
     -
       name: 'Event Handler 1'
@@ -123,10 +123,10 @@ Here is example how block can be launched after creation:
   register: module_cache
   pubnub_blocks:
     email: '{{ email }}'
-    pwd: '{{ password }}'
+    password: '{{ password }}'
     application: '{{ app_name }}'
     keyset: '{{ keyset_name }}'
-    block: 'Test Block 1'
+    name: 'Test Block 1'
     event_handlers:
       -
         src: 'sources/eh1.js'
@@ -140,20 +140,20 @@ Here is example how block can be launched after creation:
         event: 'js-before-publish'
 - name: Start block
   pubnub_blocks:
-    cache: '{{ module_cache | default({}) }}'
+    cache: '{{ module_cache }}'
     application: '{{ app_name }}'
     keyset: '{{ keyset_name }}'
-    block: 'Test Block 1'
+    name: 'Test Block 1'
     state: start
 ```  
 Block can be stopped as shown below:  
 ```yml
 pubnub_blocks:
   email: '{{ email }}'
-  pwd: '{{ password }}'
+  password: '{{ password }}'
   application: '{{ app_name }}'
   keyset: '{{ keyset_name }}'
-  block: 'Test Block 1'
+  name: 'Test Block 1'
   state: stop
 ```
 
@@ -162,10 +162,10 @@ It is possible to change basic block information like: _name_ and _description_.
 ```yml
 pubnub_blocks:
   email: '{{ email }}'
-  pwd: '{{ password }}'
+  password: '{{ password }}'
   application: '{{ app_name }}'
   keyset: '{{ keyset_name }}'
-  block: 'Test Block 1'
+  name: 'Test Block 1'
   description: 'New block description'
   changes:
     name: 'Renamed block'
@@ -177,10 +177,10 @@ It is possible to modify any event handler property. Here is an example how even
 ```yml
 pubnub_blocks:
   email: '{{ email }}'
-  pwd: '{{ password }}'
+  password: '{{ password }}'
   application: '{{ app_name }}'
   keyset: '{{ keyset_name }}'
-  block: 'Test Block 1'
+  name: 'Test Block 1'
   event_handlers:
     -
       name: 'Event Handler 2'

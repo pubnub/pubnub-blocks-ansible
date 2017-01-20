@@ -8,19 +8,19 @@
       register: module_cache
       pubnub_blocks:
         email: '{{ lookup("env","PUBNUB_USER") }}'
-        pwd: '{{ lookup("env","PUBNUB_PASS") }}'
+        password: '{{ lookup("env","PUBNUB_PASS") }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
     - name: Rename '{{ lookup("env","BLOCK_NAME") }}' and set description
       ignore_errors: True
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         description: 'Description changed from Ansible script'
         changes:
           name: '{{ lookup("env","NEW_BLOCK_NAME") }}'
@@ -28,25 +28,24 @@
       ignore_errors: True
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","NEW_BLOCK_NAME") }}'
+        name: '{{ lookup("env","NEW_BLOCK_NAME") }}'
         changes:
           name: '{{ lookup("env","NEW_BLOCK_NAME") }}'
     - name: Delete '{{ lookup("env","NEW_BLOCK_NAME") }}'
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","NEW_BLOCK_NAME") }}'
+        name: '{{ lookup("env","NEW_BLOCK_NAME") }}'
         state: absent
     - name: Delete '{{ lookup("env","NEW_BLOCK_NAME") }}' (no changes)
-      register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","NEW_BLOCK_NAME") }}'
+        name: '{{ lookup("env","NEW_BLOCK_NAME") }}'
         state: absent

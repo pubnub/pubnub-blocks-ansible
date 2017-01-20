@@ -108,10 +108,13 @@ print('{0}>{1} Done.{2}'.format(TextColor.GREEN, TextStyle.BOLD, TextColor.END))
 
 # Run block creation tests.
 print('{0}Check block creation...{1}'.format(TextColor.YELLOW, TextColor.END))
-print('{0}> Clean up. Delete \'{1}\' block ({2}{0}){3}'.format(TextColor.CYAN, os.environ['BLOCK_NAME'], expected_pass,
-                                                               TextColor.END))
+print('{0}> Prepare:\n'.format(TextColor.CYAN) +
+      '  1. Copy event handler scripts to remote (if required)\n' +
+      '  2. Delete \'{0}\' block ({1}{2}){3}'.format(os.environ['BLOCK_NAME'], expected_pass, TextColor.CYAN,
+                                                     TextColor.END))
 run('ansible-playbook tests/test-prepare.yml -i tests/inventory')
 print('  {0}> {1}Done.{2}'.format(TextColor.GREEN, TextStyle.BOLD, TextColor.END))
+
 
 # Scenario #1
 print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
@@ -119,7 +122,7 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
       '  2. Create \'{0}\' block ({1}{2}){3}'.format(os.environ['BLOCK_NAME'], expected_pass, TextColor.CYAN,
                                                      TextColor.END))
 start_time = time.time()
-results = run('ansible-playbook tests/test-scenario-1.yml -i tests/inventory')
+results = run('ansible-playbook tests/test-scenario-1.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=2, changes=1, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))
@@ -136,10 +139,10 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
                                                          TextColor.END))
 start_time = time.time()
 results = run('ansible-playbook tests/test-scenario-2.yml -i tests/inventory')
+
 check_results(res=results[0], operations=5, changes=2, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))
-
 # Run event handlers creation tests.
 print('{0}\nCheck event handlers creation...{1}'.format(TextColor.YELLOW, TextColor.END))
 

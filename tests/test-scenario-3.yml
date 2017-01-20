@@ -8,19 +8,21 @@
       register: module_cache
       pubnub_blocks:
         email: '{{ lookup("env","PUBNUB_USER") }}'
-        pwd: '{{ lookup("env","PUBNUB_PASS") }}'
+        password: '{{ lookup("env","PUBNUB_PASS") }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
     - name: Add '{{ lookup("env","EVENT_HANDLER_1_NAME") }}' event handler to '{{ lookup("env","BLOCK_NAME") }}'
       ignore_errors: True
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
+        email: '{{ lookup("env","PUBNUB_USER") }}'
+        password: '{{ lookup("env","PUBNUB_PASS") }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
         event_handlers:
           -
@@ -32,10 +34,10 @@
       ignore_errors: True
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
         event_handlers:
           -
@@ -47,10 +49,10 @@
       ignore_errors: True
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
         event_handlers:
           -
@@ -67,10 +69,10 @@
       ignore_errors: True
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
         event_handlers:
           -
@@ -80,10 +82,10 @@
       ignore_errors: True
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
         event_handlers:
           -
@@ -93,10 +95,10 @@
       ignore_errors: True
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
         event_handlers:
           -
@@ -106,10 +108,10 @@
       ignore_errors: True
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
         event_handlers:
           -
@@ -119,17 +121,16 @@
       ignore_errors: True
       register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: start
     - name: Start '{{ lookup("env","BLOCK_NAME") }}' block (no changes)
       ignore_errors: True
-      register: module_cache
       pubnub_blocks:
-        cache: '{{ module_cache | default({}) }}'
+        cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
-        block: '{{ lookup("env","BLOCK_NAME") }}'
+        name: '{{ lookup("env","BLOCK_NAME") }}'
         state: start
