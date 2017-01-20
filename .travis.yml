@@ -13,6 +13,7 @@ before_install:
 install:
   # Install Ansible.
   - pip install ansible
+  - pip uninstall six
   - pip install paramiko PyYAML Jinja2 httplib2 six
   - pip install --upgrade six
 
