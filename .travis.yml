@@ -13,7 +13,7 @@ before_install:
 install:
   # Install Ansible.
   - pip install ansible
-  - pip pip install paramiko PyYAML Jinja2 httplib2 six
+  - pip install paramiko PyYAML Jinja2 httplib2 six
 
 script:
   - python run-tests.py
