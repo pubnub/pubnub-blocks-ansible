@@ -16,6 +16,7 @@ install:
   - pip uninstall six --yes
   - pip install httplib2 six
   - pip install --upgrade six
+  - pip freeze
 
 script:
   - python run-tests.py
