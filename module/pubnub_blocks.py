@@ -90,7 +90,7 @@ options:
   changes:
     description:
       - List of fields which should be changed by block itself (doesn't affect any event handlers).
-      - Possible options for change is: C(name).
+      - "Possible options for change is: C(name)."
     required: false
     default: {}
   validate_certs:
@@ -1964,7 +1964,7 @@ def _object_value(obj, key=None, default=None):
             for part in key.split('.'):
                 if isinstance(value, dict):
                     value = value.get(part) if value.get(part) is not None else default
-                elif type(obj) in [tuple, list]:
+                elif isinstance(value, tuple) or isinstance(value, list):
                     index = int(part)
                     value = value[index] if index < len(value) else default
                 if default is not None and value and value == default:

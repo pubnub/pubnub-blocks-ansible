@@ -189,3 +189,10 @@ pubnub_blocks:
         name: 'New Event Handler Name'
     -
 ```  
+
+# Ansible sanity check
+Section contain list of commands which can be used before sending MPR what module correspond to Ansible requirements:
+```bash
+test/runner/test.py sanity -v --skip-test ansible-doc --python 2.7 --require lib/ansible/modules/cloud/pubnub/__init__.py --require lib/ansible/modules/cloud/pubnub/pubnub_blocks.py --color yes --requirements
+
+```
