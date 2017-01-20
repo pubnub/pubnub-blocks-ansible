@@ -202,7 +202,7 @@ PN_BLOCK_STATE_CHECK_MAX_COUNT = 30
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils._text import *
 from ansible.module_utils.urls import *
-from six.moves.urllib.parse import urlencode
+import six
 try:
     import zlib
     ZLIB_AVAILABLE = True
@@ -1573,7 +1573,7 @@ class PubNubEndpoint(object):
         :rtype:  str
         :return: Reference on string which is composed from API endpoint path components and query string.
         """
-        return '{}?{}'.format(endpoint, urlencode(query))
+        return '{}?{}'.format(endpoint, six.moves.urllib.parse.urlencode(query))
 
 
 class PubNubAPIClient(object):
