@@ -1,2 +1,0 @@
-[blocks]
-localhost ansible_connection=local

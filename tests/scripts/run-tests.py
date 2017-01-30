@@ -1,45 +1,10 @@
 #!/usr/bin/python
 # coding: utf-8
-from subprocess import Popen, PIPE
+from pn_test_utils import TextColor, TextStyle, version, run
 import random
 import time
-import sys
 import os
 import re
-
-
-class TextColor:
-    RED = '\033[91m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    PURPLE = '\033[94m'
-    PINK = '\033[95m'
-    CYAN = '\033[96m'
-    GRAY = '\033[97m'
-    END = '\033[0m'
-
-
-class TextStyle:
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-    END = '\033[0m'
-
-
-def run(command):
-    """Run 'command' and wait for it's completion to get results.
-
-    :type command:  str
-    :param command: Reference on shell command which should be executed.
-    """
-    process = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
-
-    # Retrieve stdout and stderr content.
-    data = process.communicate()
-    if data[1]:
-        print('{0}{1}{2}'.format(TextColor.RED, data[1], TextColor.END))
-        exit(process.returncode)
-
-    return data
 
 
 def check_results(res, operations=0, changes=0, failed=0):
@@ -78,13 +43,12 @@ def check_results(res, operations=0, changes=0, failed=0):
         print('UNEXPECTED RESPONSE FORMAT: {0}'.format(res))
         exit(1)
 
-
-# Prepare variables
-try:
-    version = str(sys.version_info.major) + "." + str(sys.version_info.minor)
-except:
-    version = str(sys.version_info[0]) + "." + str(sys.version_info[1])
+# Prepare environment
 print('Python version: {0}{1}{2}'.format(TextStyle.BOLD, version, TextStyle.END))
+os.environ['PYTHON_VERSION'] = version
+os.environ['TEST_ENABLED'] = 'False'
+os.environ['TEST_FIXTURES_DIR'] = 'mock/fixtures/{0}'.format(version)
+os.environ['TEST_LOG_FILE_PATH'] = '{0}/pnapivcr_debug.log'.format(os.environ['TEST_FIXTURES_DIR'])
 os.environ['BAD_BLOCK_NAME'] = 'Ansible Block v{0}'.format(version)
 os.environ['BLOCK_NAME'] = 'Ansible block v{0}'.format(version).replace('.', '')
 os.environ['NEW_BLOCK_NAME'] = os.environ['BLOCK_NAME'] + '-changed'
@@ -103,7 +67,7 @@ test_start_time = time.time()
 
 # Check test playbook syntax.
 print('{0}Verify test playbooks syntax...{2}'.format(TextColor.YELLOW, TextStyle.BOLD, TextColor.END))
-run('ansible-playbook tests/test-prepare.yml -i tests/inventory --syntax-check')
+run('ansible-playbook tests/test-prepare.yml -i tests/inventory --syntax-check -vvv')
 print('{0}>{1} Done.{2}'.format(TextColor.GREEN, TextStyle.BOLD, TextColor.END))
 
 # Run block creation tests.
@@ -112,7 +76,8 @@ print('{0}> Prepare:\n'.format(TextColor.CYAN) +
       '  1. Copy event handler scripts to remote (if required)\n' +
       '  2. Delete \'{0}\' block ({1}{2}){3}'.format(os.environ['BLOCK_NAME'], expected_pass, TextColor.CYAN,
                                                      TextColor.END))
-run('ansible-playbook tests/test-prepare.yml -i tests/inventory')
+os.environ['TEST_FIXTURE_NAME'] = 'cleanup'
+run('ansible-playbook tests/test-prepare.yml -i tests/inventory -vvv')
 print('  {0}> {1}Done.{2}'.format(TextColor.GREEN, TextStyle.BOLD, TextColor.END))
 
 
@@ -122,6 +87,7 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
       '  2. Create \'{0}\' block ({1}{2}){3}'.format(os.environ['BLOCK_NAME'], expected_pass, TextColor.CYAN,
                                                      TextColor.END))
 start_time = time.time()
+os.environ['TEST_FIXTURE_NAME'] = 'bad-good-block-create'
 results = run('ansible-playbook tests/test-scenario-1.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=2, changes=1, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
@@ -138,11 +104,12 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
       '  5. Try delete \'{0}\' block ({1}{2}){3}'.format(os.environ['NEW_BLOCK_NAME'], expected_ignore, TextColor.CYAN,
                                                          TextColor.END))
 start_time = time.time()
-results = run('ansible-playbook tests/test-scenario-2.yml -i tests/inventory')
-
+os.environ['TEST_FIXTURE_NAME'] = 'block-create-rename-delete'
+results = run('ansible-playbook tests/test-scenario-2.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=5, changes=2, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))
+
 # Run event handlers creation tests.
 print('{0}\nCheck event handlers creation...{1}'.format(TextColor.YELLOW, TextColor.END))
 
@@ -164,7 +131,8 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
       '  9. Start \'{0}\' block ({1}{2})\n'.format(os.environ['BLOCK_NAME'], expected_pass, TextColor.CYAN) +
       '  10. Try start \'{0}\' block ({1}{2})'.format(os.environ['BLOCK_NAME'], expected_ignore, TextColor.CYAN))
 start_time = time.time()
-results = run('ansible-playbook tests/test-scenario-3.yml -i tests/inventory')
+os.environ['TEST_FIXTURE_NAME'] = 'add-change-handlers-start-block'
+results = run('ansible-playbook tests/test-scenario-3.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=10, changes=6, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))
@@ -180,7 +148,8 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
       '  5. Try delete \'{0}\' block ({1}{2}){3}'.format(os.environ['BLOCK_NAME'], expected_ignore, TextColor.CYAN,
                                                          TextColor.END))
 start_time = time.time()
-results = run('ansible-playbook tests/test-scenario-4.yml -i tests/inventory')
+os.environ['TEST_FIXTURE_NAME'] = 'block-remove-stop'
+results = run('ansible-playbook tests/test-scenario-4.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=5, changes=2, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))
@@ -196,7 +165,8 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
       '  6. Try delete \'{0}\' block ({1}{2}){3}'.format(os.environ['BLOCK_NAME'], expected_ignore, TextColor.CYAN,
                                                          TextColor.END))
 start_time = time.time()
-results = run('ansible-playbook tests/test-scenario-5.yml -i tests/inventory')
+os.environ['TEST_FIXTURE_NAME'] = 'block-create-add-handlers-start'
+results = run('ansible-playbook tests/test-scenario-5.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=6, changes=4, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))

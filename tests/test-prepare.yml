@@ -1,17 +1,5 @@
 ---
-- name: Prepare remote file system.
-  hosts: blocks
-  gather_facts: False
-  tasks:
-    - name: Ensures '~/sources' directory exists
-      file: path='~/sources' state=directory
-      when: inventory_hostname != 'localhost'
-    - name: Copy event handler source files.
-      template: src='{{ item }}' dest='~/sources/' force=Yes
-      with_fileglob:
-        - sources/*.js
-      when: inventory_hostname != 'localhost'
-- name: Test PubNub Blocks module for Ansible.
+- name: Prepare to test PubNub BLOCKs module for Ansible.
   hosts: blocks
   gather_facts: False
   tasks:

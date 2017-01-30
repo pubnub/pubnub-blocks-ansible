@@ -90,3 +90,11 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Module test artifacts
+*.log
+*.orig
+inventory
+
+# OSX
+.DS_Store

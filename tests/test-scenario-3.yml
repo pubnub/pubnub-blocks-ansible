@@ -18,8 +18,6 @@
       register: module_cache
       pubnub_blocks:
         cache: '{{ module_cache }}'
-        email: '{{ lookup("env","PUBNUB_USER") }}'
-        password: '{{ lookup("env","PUBNUB_PASS") }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
