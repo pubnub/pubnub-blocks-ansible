@@ -8,15 +8,15 @@ import os
 
 # Create tests inventory file which will refer to proper Python interpreter.
 inventory_file_location = 'tests/inventory'
-if not os.path.exists(to_bytes(inventory_file_location)):
-    python_location = run('which python')[0].strip('\n')
+if not os.path.exists(inventory_file_location):
+    python_location = run(to_bytes('which python'))[0].strip('\n')
     inventory_file_content = '[blocks]\nlocalhost ansible_connection=local ansible_python_interpreter={0}'
-    run('echo \'{0}\' >{1}'.format(inventory_file_content, inventory_file_location).format(python_location))
+    run(to_bytes('echo \'{0}\' >{1}'.format(inventory_file_content, inventory_file_location).format(python_location)))
 
 # Prepare fixtures directory
 fixtures_directory = 'tests/mock/fixtures/{0}'.format(version)
 if not os.path.exists(fixtures_directory):
-    run('mkdir -p "{0}"'.format(fixtures_directory))
+    run(to_bytes('mkdir -p "{0}"'.format(fixtures_directory)))
 
 # Remove old VCR logs if exists.
 fixture_dir_files = os.listdir(fixtures_directory)
@@ -31,7 +31,7 @@ module_location = 'module/pubnub_blocks.py'
 module_copy_location = '.'.join([module_location, 'orig'])
 
 # Recover previous module version if required.
-if not os.path.exists(to_bytes(module_copy_location)):
+if not os.path.exists(module_copy_location):
     move(module_location, module_copy_location)
 
 # Inject VCR initialization code
