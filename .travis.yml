@@ -15,4 +15,6 @@ install:
   - pip install ansible
 
 script:
-  - python run-tests.py
+  - python scripts/preflight.py
+  - python scripts/run-tests.py
+  - python scripts/postflight.py
