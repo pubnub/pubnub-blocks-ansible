@@ -10,7 +10,9 @@ python:
 
 # Fetch generated list of fixtures
 addons:
-  artifacts: true
+  artifacts:
+    paths:
+      - tests/mock/fixtures/3.3
 
 
 before_install:
