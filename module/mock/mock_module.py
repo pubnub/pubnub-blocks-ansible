@@ -47,7 +47,7 @@ class VCRModule(object):
         super(VCRModule, self).__init__()
 
         # Configure logger to record VCR interaction.
-        logging.basicConfig(filename=log_file_path, level=logging.INFO)
+        logging.basicConfig(filename=log_file_path, level=logging.DEBUG)
 
         self._fixtures_dir = fixtures_dir
         self._fixture_name = fixture_name

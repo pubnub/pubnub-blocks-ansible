@@ -286,9 +286,10 @@ class PubNubAccount(object):
             for application_name in self._applications:
                 application = self.application_by_name(application_name)
                 exported_applications.append(application.export())
-        export_data['pnm_applications'] = exported_applications
+        if export_data is not None:
+            export_data['pnm_applications'] = exported_applications
 
-        return export_data
+        return export_data if export_data is not None else dict()
 
     def current_application(self):
         """Retrieve reference on application which has been specified for this module run.
