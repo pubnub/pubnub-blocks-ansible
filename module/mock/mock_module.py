@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding: utf-8
 from vcr.stubs import VCRHTTPSConnection
-from subprocess import Popen, PIPE
+from ansible.module_utils._text import to_text
 import ansible.module_utils.urls
 import logging
 import json
@@ -178,7 +178,7 @@ class VCRModule(object):
             :rtype:  dict
             :return: Modified response object.
             """
-            json_response = json.loads(response['body']['string'])
+            json_response = json.loads(to_text(response['body']['string']))
             VCRModule._replace_values_for_keys(obj=json_response, keys=fields, new_value='<secret-value>')
             response['body']['string'] = json.dumps(json_response, separators=(',', ':'))
 
