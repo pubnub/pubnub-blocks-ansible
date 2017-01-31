@@ -1946,7 +1946,7 @@ class PubNubAPIClient(object):
             # Process API call error.
             descr = None
             try:
-                descr = self.module.from_json(res_inf['body']) if _object_value(obj=res_inf, key='body') else None
+                descr = self.module.from_json(to_text(res_inf['body'])) if _object_value(obj=res_inf, key='body') else None
             except ValueError:
                 error_message = _object_value(obj=res_inf, key='body')
             if descr:
@@ -1963,7 +1963,7 @@ class PubNubAPIClient(object):
                     response = self.module.from_json(to_text(raw_response))
                 except ValueError:
                     error = sys.exc_info()[1]
-                    error_message = "Unexpected response: %s.\nReceived response: %s\nDecoded response: %s\nRequest information: %s\nEncoding: %s\nShould unzip: %d" % (error, readed_data, raw_response, res_inf, res_inf.get('Content-Encoding'), res_inf.get('Content-Encoding') in ['gzip', 'deflate'])
+                    error_message = "Unexpected response: %s.\nReceived response: %s" % (error, raw_response)
         if error_message:
             self.module.fail_json(changed=self.state_changed, msg=error_message, url=_object_value(obj=res_inf, key='url'),
                                   headers=headers, status=res_inf['status'], post_body=data, module_cache=self.account.export())
