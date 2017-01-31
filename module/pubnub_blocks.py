@@ -1940,7 +1940,7 @@ class PubNubAPIClient(object):
 
         response = None
         error_message = None
-        res_stream, res_inf = fetch_url(self.module, url=url, data=json_data, headers=headers, method=http_method,
+        res_stream, res_inf = fetch_url(self.module, url=to_bytes(url), data=to_bytes(json_data), headers=headers, method=to_bytes(http_method),
                                         force=True)
         if res_inf['status'] >= 400 and res_inf['status'] not in ignored_status_codes:
             # Process API call error.
