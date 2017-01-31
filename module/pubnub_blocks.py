@@ -1940,7 +1940,7 @@ class PubNubAPIClient(object):
 
         response = None
         error_message = None
-        res_stream, res_inf = fetch_url(self.module, url=to_bytes(url), data=to_bytes(json_data), headers=headers, method=to_bytes(http_method),
+        res_stream, res_inf = fetch_url(self.module, url=url, data=json_data, headers=headers, method=http_method,
                                         force=True)
         if res_inf['status'] >= 400 and res_inf['status'] not in ignored_status_codes:
             # Process API call error.
@@ -1954,15 +1954,16 @@ class PubNubAPIClient(object):
         elif not res_stream:
             error_message = '{} ({})'.format(_object_value(obj=res_inf, key='msg'), _object_value(obj=res_inf, key='url'))
         else:
-            raw_response = _decompress_if_possible(res_stream.read(), res_inf)
+            readed_data = res_stream.read()
+            raw_response = _decompress_if_possible(readed_data, res_inf)
             if not raw_response:
                 error_message = 'Unexpected response: Empty PubNub service response.'
             else:
                 try:
-                    response = self.module.from_json(raw_response)
+                    response = self.module.from_json(to_text(raw_response))
                 except ValueError:
                     error = sys.exc_info()[1]
-                    error_message = "Unexpected response: %s. Received response: %s" % (error.message, raw_response)
+                    error_message = "Unexpected response: %s.\nReceived response: %s\nDecoded response: %s\nRequest information: %s\nEncoding: %s\nShould unzip: %d" % (error, readed_data, raw_response, res_inf, res_inf.get('Content-Encoding'), res_inf.get('Content-Encoding') in ['gzip', 'deflate'])
         if error_message:
             self.module.fail_json(changed=self.state_changed, msg=error_message, url=_object_value(obj=res_inf, key='url'),
                                   headers=headers, status=res_inf['status'], post_body=data, module_cache=self.account.export())
@@ -2068,7 +2069,8 @@ def _decompress_if_possible(data, information):
     :rtype:  str
     :return: Decompressed object content or same object if 'zlib' not available.
     """
-    data_compressed = information.get('content-encoding') in ['gzip', 'deflate']
+    encoding = information.get('content-encoding')
+    data_compressed = encoding if encoding is not None else information.get('Content-Encoding') in ['gzip', 'deflate']
     return zlib.decompress(data, 16 + zlib.MAX_WBITS) if data_compressed else data
 
 
