@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # coding: utf-8
 from pn_test_utils import TextColor, TextStyle, version, run
-from ansible.module_utils._text import to_bytes
 import random
 import time
 import os
@@ -68,7 +67,7 @@ test_start_time = time.time()
 
 # Check test playbook syntax.
 print('{0}Verify test playbooks syntax...{2}'.format(TextColor.YELLOW, TextStyle.BOLD, TextColor.END))
-run(to_bytes('ansible-playbook tests/test-prepare.yml -i tests/inventory --syntax-check -vvv'))
+run('ansible-playbook tests/test-prepare.yml -i tests/inventory --syntax-check -vvv')
 print('{0}>{1} Done.{2}'.format(TextColor.GREEN, TextStyle.BOLD, TextColor.END))
 
 # Run block creation tests.
@@ -78,7 +77,7 @@ print('{0}> Prepare:\n'.format(TextColor.CYAN) +
       '  2. Delete \'{0}\' block ({1}{2}){3}'.format(os.environ['BLOCK_NAME'], expected_pass, TextColor.CYAN,
                                                      TextColor.END))
 os.environ['TEST_FIXTURE_NAME'] = 'cleanup'
-run(to_bytes('ansible-playbook tests/test-prepare.yml -i tests/inventory -vvv'))
+run('ansible-playbook tests/test-prepare.yml -i tests/inventory -vvv')
 print('  {0}> {1}Done.{2}'.format(TextColor.GREEN, TextStyle.BOLD, TextColor.END))
 
 
@@ -89,7 +88,7 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
                                                      TextColor.END))
 start_time = time.time()
 os.environ['TEST_FIXTURE_NAME'] = 'bad-good-block-create'
-results = run(to_bytes('ansible-playbook tests/test-scenario-1.yml -i tests/inventory -vvv'))
+results = run('ansible-playbook tests/test-scenario-1.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=2, changes=1, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))
@@ -106,7 +105,7 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
                                                          TextColor.END))
 start_time = time.time()
 os.environ['TEST_FIXTURE_NAME'] = 'block-create-rename-delete'
-results = run(to_bytes('ansible-playbook tests/test-scenario-2.yml -i tests/inventory -vvv'))
+results = run('ansible-playbook tests/test-scenario-2.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=5, changes=2, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))
@@ -133,7 +132,7 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
       '  10. Try start \'{0}\' block ({1}{2})'.format(os.environ['BLOCK_NAME'], expected_ignore, TextColor.CYAN))
 start_time = time.time()
 os.environ['TEST_FIXTURE_NAME'] = 'add-change-handlers-start-block'
-results = run(to_bytes('ansible-playbook tests/test-scenario-3.yml -i tests/inventory -vvv'))
+results = run('ansible-playbook tests/test-scenario-3.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=10, changes=6, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))
@@ -150,7 +149,7 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
                                                          TextColor.END))
 start_time = time.time()
 os.environ['TEST_FIXTURE_NAME'] = 'block-remove-stop'
-results = run(to_bytes('ansible-playbook tests/test-scenario-4.yml -i tests/inventory -vvv'))
+results = run('ansible-playbook tests/test-scenario-4.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=5, changes=2, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))
@@ -167,7 +166,7 @@ print('{0}> Test scenario:\n'.format(TextColor.CYAN) +
                                                          TextColor.END))
 start_time = time.time()
 os.environ['TEST_FIXTURE_NAME'] = 'block-create-add-handlers-start'
-results = run(to_bytes('ansible-playbook tests/test-scenario-5.yml -i tests/inventory -vvv'))
+results = run('ansible-playbook tests/test-scenario-5.yml -i tests/inventory -vvv')
 check_results(res=results[0], operations=6, changes=4, failed=0)
 print('  {0}> {1}Passed in {2} seconds.{3}'.format(TextColor.GREEN, TextStyle.BOLD, (time.time() - start_time),
                                                    TextColor.END))

@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # coding: utf-8
-from ansible.module_utils._text import to_bytes
 from pn_test_utils import TextColor, version, run
 from shutil import move
 import yaml
@@ -14,9 +13,9 @@ for file_name in fixture_dir_files:
     full_path = '/'.join([used_fixtures_directory, file_name])
     # Remove old module calls counter file.
     if file_name.endswith('.counter'):
-        os.remove(to_bytes(full_path))
+        os.remove(full_path)
     if file_name.endswith('.log'):
-        with open(to_bytes(full_path), mode='r') as log:
+        with open(full_path, mode='r') as log:
             print('\nMock requests stats:\n{0}'.format('-' * 20))
             log_lines = log.readlines()
             for log_line in log_lines:
@@ -29,7 +28,7 @@ for file_name in fixture_dir_files:
             print('{0}'.format('-' * 20))
 
 # Create missing fixtures.
-with open(to_bytes('/'.join([os.environ['PWD'], '.travis.yml'])), mode='r') as travis_file:
+with open('/'.join([os.environ['PWD'], '.travis.yml']), mode='r') as travis_file:
     travis_configuration = yaml.load(travis_file.read())
     python_versions = ['.'.join([python_version.split('.')[0], python_version.split('.')[1]]) for python_version in travis_configuration['python']]
 source_version = version
@@ -42,21 +41,21 @@ for file_name in fixture_dir_files:
                             source_version.replace('.', ''): target_python_version.replace('.', '')}
             target_fixtures_directory = '/'.join([fixtures_directory, target_python_version])
             target_fixture_path = '/'.join([target_fixtures_directory, file_name])
-            with open(to_bytes(source_fixture_path), mode='r') as fixture_file:
-                fixture = fixture_file.read()
-            for original_value in replacements:
-                target_value = replacements[original_value]
-                fixture = fixture.replace(original_value, target_value)
             if not os.path.exists(target_fixtures_directory):
-                run(to_bytes('mkdir -p "{0}"'.format(target_fixtures_directory)))
-            with open(to_bytes(target_fixture_path), 'w') as fixture_file:
-                fixture_file.write(fixture)
+                run('mkdir -p "{0}"'.format(target_fixtures_directory))
+                with open(source_fixture_path, mode='r') as fixture_file:
+                    fixture = fixture_file.read()
+                for original_value in replacements:
+                    target_value = replacements[original_value]
+                    fixture = fixture.replace(original_value, target_value)
+                with open(target_fixture_path, 'w') as fixture_file:
+                    fixture_file.write(fixture)
 
 
 # Restore module file from copy
 module_location = 'module/pubnub_blocks.py'
 module_copy_location = '.'.join([module_location, 'orig'])
-if os.path.exists(to_bytes(module_location)) and os.path.exists(to_bytes(module_copy_location)):
-    os.remove(to_bytes(module_location))
-if os.path.exists(to_bytes(module_copy_location)):
-    move(to_bytes(module_copy_location), to_bytes(module_location))
+if os.path.exists(module_location) and os.path.exists(module_copy_location):
+    os.remove(module_location)
+if os.path.exists(module_copy_location):
+    move(module_copy_location, module_location)
