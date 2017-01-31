@@ -2,18 +2,11 @@
 language: python
 cache: pip
 python:
-#  - "2.7"
+  - "2.7"
   - "3.3"
-#  - "3.4.4"
-#  - "3.5"
-#  - "3.6"
-
-# Fetch generated list of fixtures
-addons:
-  artifacts:
-    paths:
-      - tests/mock/fixtures/3.3
-
+  - "3.4.4"
+  - "3.5"
+  - "3.6"
 
 before_install:
   # Make sure everything's up to date.
@@ -26,4 +19,4 @@ install:
 script:
   - python tests/scripts/preflight.py
   - python tests/scripts/run-tests.py
-  - python tests/scripts/postflight.py
+#  - python tests/scripts/postflight.py

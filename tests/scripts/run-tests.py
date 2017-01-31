@@ -46,7 +46,7 @@ def check_results(res, operations=0, changes=0, failed=0):
 # Prepare environment
 print('Python version: {0}{1}{2}'.format(TextStyle.BOLD, version, TextStyle.END))
 os.environ['PYTHON_VERSION'] = version
-os.environ['TEST_ENABLED'] = 'True'
+os.environ['RECORD_TEST_FIXTURES'] = 'False'
 os.environ['TEST_FIXTURES_DIR'] = 'mock/fixtures/{0}'.format(version)
 os.environ['TEST_LOG_FILE_PATH'] = '{0}/pnapivcr_debug.log'.format(os.environ['TEST_FIXTURES_DIR'])
 os.environ['BAD_BLOCK_NAME'] = 'Ansible Block v{0}'.format(version)

@@ -13,6 +13,9 @@ if not os.path.exists(inventory_file_location):
     inventory_file_content = '[blocks]\nlocalhost ansible_connection=local ansible_python_interpreter={0}'
     run('echo \'{0}\' >{1}'.format(inventory_file_content, inventory_file_location).format(sys.executable))
 
+# Temporary disabled service results mocking.
+exit(0)
+
 # Prepare fixtures directory
 fixtures_directory = 'tests/mock/fixtures/{0}'.format(version)
 if not os.path.exists(fixtures_directory):

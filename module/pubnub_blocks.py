@@ -1946,7 +1946,7 @@ class PubNubAPIClient(object):
             # Process API call error.
             descr = None
             try:
-                descr = self.module.from_json(to_text(res_inf['body'])) if _object_value(obj=res_inf, key='body') else None
+                descr = self.module.from_json(res_inf['body']) if _object_value(obj=res_inf, key='body') else None
             except ValueError:
                 error_message = _object_value(obj=res_inf, key='body')
             if descr:
@@ -1954,16 +1954,15 @@ class PubNubAPIClient(object):
         elif not res_stream:
             error_message = '{} ({})'.format(_object_value(obj=res_inf, key='msg'), _object_value(obj=res_inf, key='url'))
         else:
-            readed_data = res_stream.read()
-            raw_response = _decompress_if_possible(readed_data, res_inf)
+            raw_response = _decompress_if_possible(res_stream.read(), res_inf)
             if not raw_response:
                 error_message = 'Unexpected response: Empty PubNub service response.'
             else:
                 try:
-                    response = self.module.from_json(to_text(raw_response))
+                    response = self.module.from_json(raw_response)
                 except ValueError:
                     error = sys.exc_info()[1]
-                    error_message = "Unexpected response: %s.\nReceived response: %s" % (error, raw_response)
+                    error_message = "Unexpected response: %s. Received response: %s" % (error.message, raw_response)
         if error_message:
             self.module.fail_json(changed=self.state_changed, msg=error_message, url=_object_value(obj=res_inf, key='url'),
                                   headers=headers, status=res_inf['status'], post_body=data, module_cache=self.account.export())
