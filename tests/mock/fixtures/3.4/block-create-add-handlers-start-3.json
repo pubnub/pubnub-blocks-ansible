@@ -1,18 +1,27 @@
 {
-    "version": 1, 
     "interactions": [
         {
             "request": {
-                "body": "{\"block_id\": 5642}", 
+                "method": "POST", 
+                "body": "{\"block_id\": 5950}", 
                 "headers": {
-                    "Content-Length": [
-                        "18"
-                    ], 
                     "Accept-Encoding": [
                         "gzip,deflate"
                     ], 
+                    "Cache-Control": [
+                        "no-cache"
+                    ], 
+                    "Host": [
+                        "admin.pubnub.com"
+                    ], 
+                    "Content-Length": [
+                        "18"
+                    ], 
                     "X-Session-Token": [
                         "<secret-header>"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
                     ], 
                     "Connection": [
                         "close"
@@ -22,152 +31,111 @@
                     ], 
                     "User-Agent": [
                         "Python-urllib/3.4"
-                    ], 
-                    "Host": [
-                        "admin.pubnub.com"
-                    ], 
-                    "Cache-Control": [
-                        "no-cache"
-                    ], 
-                    "Content-Type": [
-                        "application/json"
                     ]
                 }, 
-                "method": "POST", 
-                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/5642/start"
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/5950/start"
             }, 
             "response": {
                 "status": {
                     "message": "OK", 
                     "code": 200
                 }, 
+                "body": {
+                    "string": "{\"status\":200,\"message\":\"OK\"}"
+                }, 
                 "headers": {
-                    "content-length": [
-                        "38"
+                    "Pragma": [
+                        "no-cache"
                     ], 
-                    "access-control-allow-headers": [
-                        "Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With,X-Session-Token,X-Portal"
-                    ], 
-                    "set-cookie": [
-                        "AWSELB=EDFDE76D14A4BD43348BDD485C4B8EAA74F0746F5D0C6470CE1FBA00D104D03C4226A1E14F3F868CF679BE20B4599B9586C80A3D68DBBADA1CAABCA256F04E8A08041031C4;PATH=/;MAX-AGE=3600"
-                    ], 
-                    "expires": [
-                        "-1"
-                    ], 
-                    "x-access-level": [
-                        "user"
-                    ], 
-                    "cache-control": [
+                    "Cache-control": [
                         "no-cache, no-store", 
                         "no-cache=\"set-cookie\""
                     ], 
-                    "connection": [
+                    "Content-Length": [
+                        "38"
+                    ], 
+                    "Connection": [
                         "Close"
                     ], 
-                    "pragma": [
-                        "no-cache"
-                    ], 
-                    "access-control-allow-credentials": [
-                        "true"
-                    ], 
-                    "date": [
-                        "Mon, 30 Jan 2017 17:33:16 GMT"
-                    ], 
-                    "access-control-allow-origin": [
-                        "*"
-                    ], 
-                    "access-control-allow-methods": [
-                        "GET, POST, PUT, DELETE, OPTIONS"
-                    ], 
-                    "content-type": [
+                    "Content-Type": [
                         "application/json"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Date": [
+                        "Mon, 06 Feb 2017 03:08:41 GMT"
+                    ], 
+                    "Expires": [
+                        "-1"
                     ]
-                }, 
-                "body": {
-                    "string": "{\"status\":200,\"message\":\"OK\"}"
                 }
             }
-        }, 
+        },
         {
             "request": {
+                "method": "GET", 
                 "body": null, 
                 "headers": {
                     "Accept-Encoding": [
                         "gzip,deflate"
                     ], 
-                    "X-Session-Token": [
-                        "<secret-header>"
+                    "Cache-Control": [
+                        "no-cache"
+                    ], 
+                    "Connection": [
+                        "close"
                     ], 
                     "Host": [
                         "admin.pubnub.com"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
                     ], 
                     "Accept": [
                         "application/json"
                     ], 
                     "User-Agent": [
                         "Python-urllib/3.4"
-                    ], 
-                    "Connection": [
-                        "close"
-                    ], 
-                    "Cache-Control": [
-                        "no-cache"
                     ]
                 }, 
-                "method": "GET", 
-                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/5642"
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/5950"
             }, 
             "response": {
                 "status": {
                     "message": "OK", 
                     "code": 200
                 }, 
+                "body": {
+                    "string": "{\"payload\":[{\"template\":0,\"created_date\":\"Sun, 05 Feb 2017 19:08:35 GMT\",\"intended_state\":\"running\",\"state\":\"running\",\"name\":\"Ansible block v34\",\"id\":5950,\"event_handlers\":[{\"state\":\"running\",\"log_level\":\"debug\",\"created_date\":\"Sun, 05 Feb 2017 19:08:36 GMT\",\"channels\":\"eh-channel-1-027367169779663425\",\"order_index\":0,\"channel_groups\":null,\"name\":\"Event Handler 2-34\",\"type\":\"js\",\"event\":\"js-before-publish\",\"modified_user_id\":0,\"output\":\"output-0.8049011040267408\",\"rate\":null,\"create_user_id\":214382,\"block_id\":5950,\"test_payload\":null,\"status\":1,\"modified_date\":\"Mon, 06 Feb 2017 03:08:36 GMT\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #2')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"id\":5553},{\"state\":\"running\",\"log_level\":\"debug\",\"created_date\":\"Sun, 05 Feb 2017 19:08:38 GMT\",\"channels\":\"eh-channel-1-05723061844147707\",\"order_index\":0,\"channel_groups\":null,\"name\":\"Event Handler 1-34\",\"type\":\"js\",\"event\":\"js-before-publish\",\"modified_user_id\":0,\"output\":\"output-0.4622606553834502\",\"rate\":null,\"create_user_id\":214382,\"block_id\":5950,\"test_payload\":null,\"status\":1,\"modified_date\":\"Mon, 06 Feb 2017 03:08:38 GMT\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #1')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"id\":5554}],\"state_change_date\":\"Mon, 06 Feb 2017 03:08:40 GMT\",\"key_id\":246021,\"create_user_id\":214382,\"description\":\"New block\",\"status\":1,\"modified_date\":\"Mon, 06 Feb 2017 03:08:40 GMT\",\"cloned_id\":null,\"modified_user_id\":214382,\"icon_url\":null}],\"status\":200,\"message\":\"OK\"}"
+                }, 
                 "headers": {
-                    "content-length": [
-                        "2590"
+                    "Pragma": [
+                        "no-cache"
                     ], 
-                    "access-control-allow-headers": [
-                        "Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With,X-Session-Token,X-Portal"
-                    ], 
-                    "set-cookie": [
-                        "AWSELB=EDFDE76D14A4BD43348BDD485C4B8EAA74F0746F5D0C6470CE1FBA00D104D03C4226A1E14FADB3006461760FD8CF81BDF5A60D544F7D7A5D6623341EB16AB5A9F19F600FFC;PATH=/;MAX-AGE=3600"
-                    ], 
-                    "expires": [
-                        "-1"
-                    ], 
-                    "x-access-level": [
-                        "user"
-                    ], 
-                    "cache-control": [
+                    "Cache-Control": [
                         "no-cache, no-store", 
                         "no-cache=\"set-cookie\""
                     ], 
-                    "connection": [
+                    "Connection": [
                         "Close"
                     ], 
-                    "pragma": [
-                        "no-cache"
-                    ], 
-                    "access-control-allow-credentials": [
-                        "true"
-                    ], 
-                    "date": [
-                        "Mon, 30 Jan 2017 17:33:22 GMT"
-                    ], 
-                    "access-control-allow-origin": [
-                        "*"
-                    ], 
-                    "access-control-allow-methods": [
-                        "GET, POST, PUT, DELETE, OPTIONS"
-                    ], 
-                    "content-type": [
+                    "Content-Type": [
                         "application/json"
+                    ], 
+                    "Date": [
+                        "Mon, 06 Feb 2017 03:08:45 GMT"
+                    ], 
+                    "content-length": [
+                        "2604"
+                    ], 
+                    "Expires": [
+                        "-1"
                     ]
-                }, 
-                "body": {
-                    "string": "{\"status\":200,\"message\":\"OK\",\"payload\":[{\"status\":1,\"modified_date\":\"Mon, 30 Jan 2017 17:33:15 GMT\",\"cloned_id\":null,\"modified_user_id\":214382,\"create_user_id\":214382,\"description\":\"New block\",\"icon_url\":null,\"intended_state\":\"running\",\"state\":\"running\",\"template\":0,\"created_date\":\"Mon, 30 Jan 2017 09:33:09 GMT\",\"state_change_date\":\"Mon, 30 Jan 2017 17:33:15 GMT\",\"key_id\":246021,\"id\":5642,\"event_handlers\":[{\"state\":\"running\",\"modified_date\":\"Mon, 30 Jan 2017 17:33:11 GMT\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #2')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"create_user_id\":214382,\"block_id\":5642,\"rate\":null,\"output\":\"output-0.0518739423708\",\"test_payload\":null,\"order_index\":0,\"id\":5346,\"channels\":\"eh-channel-1-0125025521326\",\"channel_groups\":null,\"modified_user_id\":0,\"status\":1,\"created_date\":\"Mon, 30 Jan 2017 09:33:11 GMT\",\"log_level\":\"debug\",\"type\":\"js\",\"event\":\"js-before-publish\",\"name\":\"Event Handler 2-34\"},{\"state\":\"running\",\"modified_date\":\"Mon, 30 Jan 2017 17:33:13 GMT\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #1')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"create_user_id\":214382,\"block_id\":5642,\"rate\":null,\"output\":\"output-0.448179040972\",\"test_payload\":null,\"order_index\":0,\"id\":5347,\"channels\":\"eh-channel-1-000646467154372\",\"channel_groups\":null,\"modified_user_id\":0,\"status\":1,\"created_date\":\"Mon, 30 Jan 2017 09:33:13 GMT\",\"log_level\":\"debug\",\"type\":\"js\",\"event\":\"js-before-publish\",\"name\":\"Event Handler 1-34\"}],\"name\":\"Ansible block v34\"}]}"
                 }
             }
         }
-    ]
+    ], 
+    "version": 1
 }

@@ -19,4 +19,4 @@ install:
 script:
   - python tests/scripts/preflight.py
   - python tests/scripts/run-tests.py
-#  - python tests/scripts/postflight.py
+  - python tests/scripts/postflight.py

@@ -1,105 +1,84 @@
 {
-    "version": 1, 
     "interactions": [
         {
             "request": {
-                "body": "{\"code\": \"export default (request) => {\\n    console.log('Event Handler #2')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\", \"log_level\": \"debug\", \"name\": \"Event Handler 2-36\", \"channels\": \"eh-channel-1-0125025521326\", \"key_id\": 246021, \"output\": \"output-0.0518739423708\", \"type\": \"js\", \"event\": \"js-before-publish\", \"block_id\": 5642}", 
+                "method": "POST", 
                 "headers": {
-                    "Content-Length": [
-                        "531"
-                    ], 
-                    "Accept-Encoding": [
-                        "gzip,deflate"
-                    ], 
-                    "X-Session-Token": [
-                        "<secret-header>"
-                    ], 
-                    "Connection": [
-                        "close"
-                    ], 
-                    "Accept": [
+                    "Content-Type": [
                         "application/json"
-                    ], 
-                    "User-Agent": [
-                        "Python-urllib/3.6"
                     ], 
                     "Host": [
                         "admin.pubnub.com"
                     ], 
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
+                    "User-Agent": [
+                        "Python-urllib/3.6"
+                    ], 
+                    "Content-Length": [
+                        "539"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Connection": [
+                        "close"
+                    ], 
                     "Cache-Control": [
                         "no-cache"
-                    ], 
-                    "Content-Type": [
-                        "application/json"
                     ]
                 }, 
-                "method": "POST", 
-                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/event_handler"
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/event_handler", 
+                "body": "{\"type\": \"js\", \"name\": \"Event Handler 2-36\", \"log_level\": \"debug\", \"key_id\": 246021, \"event\": \"js-before-publish\", \"code\": \"export default (request) => {\\n    console.log('Event Handler #2')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\", \"block_id\": 5950, \"channels\": \"eh-channel-1-027367169779663425\", \"output\": \"output-0.8049011040267408\"}"
             }, 
             "response": {
                 "status": {
-                    "message": "OK", 
-                    "code": 200
+                    "code": 200, 
+                    "message": "OK"
                 }, 
                 "headers": {
-                    "content-length": [
-                        "796"
+                    "Content-Type": [
+                        "application/json"
                     ], 
-                    "access-control-allow-headers": [
-                        "Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With,X-Session-Token,X-Portal"
+                    "Pragma": [
+                        "no-cache"
                     ], 
-                    "set-cookie": [
-                        "AWSELB=EDFDE76D14A4BD43368BDD485C4B8EAA74F0746F5D0C6470CE1FBA00D104D03C4226A1E14F3F868CF679BE20B4599B9586C80A3D68DBBADA1CAABCA256F04E8A08041031C4;PATH=/;MAX-AGE=3600"
-                    ], 
-                    "expires": [
-                        "-1"
-                    ], 
-                    "x-access-level": [
-                        "user"
-                    ], 
-                    "cache-control": [
+                    "Cache-control": [
                         "no-cache, no-store", 
                         "no-cache=\"set-cookie\""
                     ], 
-                    "connection": [
+                    "Content-Length": [
+                        "804"
+                    ], 
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Connection": [
                         "Close"
                     ], 
-                    "pragma": [
-                        "no-cache"
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
                     ], 
-                    "access-control-allow-credentials": [
-                        "true"
-                    ], 
-                    "date": [
-                        "Mon, 30 Jan 2017 17:33:11 GMT"
-                    ], 
-                    "access-control-allow-origin": [
-                        "*"
-                    ], 
-                    "access-control-allow-methods": [
-                        "GET, POST, PUT, DELETE, OPTIONS"
-                    ], 
-                    "content-type": [
-                        "application/json"
+                    "Date": [
+                        "Mon, 06 Feb 2017 03:08:36 GMT"
                     ]
                 }, 
                 "body": {
-                    "string": "{\"status\":200,\"message\":\"OK\",\"payload\":{\"status\":1,\"modified_date\":\"Mon, 30 Jan 2017 17:33:11 GMT\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #2')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"create_user_id\":214382,\"block_id\":5642,\"log_level\":\"debug\",\"key_id\":\"246021\",\"event\":\"js-before-publish\",\"channels\":\"eh-channel-1-0125025521326\",\"created_date\":\"Mon, 30 Jan 2017 09:33:11 GMT\",\"output\":\"output-0.0518739423708\",\"type\":\"js\",\"id\":5366,\"name\":\"Event Handler 2-36\"}}"
+                    "string": "{\"status\":200,\"payload\":{\"modified_date\":\"Mon, 06 Feb 2017 03:08:36 GMT\",\"name\":\"Event Handler 2-36\",\"create_user_id\":214382,\"key_id\":\"246021\",\"status\":1,\"created_date\":\"Sun, 05 Feb 2017 19:08:36 GMT\",\"id\":5553,\"channels\":\"eh-channel-1-027367169779663425\",\"type\":\"js\",\"event\":\"js-before-publish\",\"log_level\":\"debug\",\"output\":\"output-0.8049011040267408\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #2')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"block_id\":5950},\"message\":\"OK\"}"
                 }
             }
         }, 
         {
             "request": {
-                "body": "{\"code\": \"export default (request) => {\\n    console.log('Event Handler #1')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\", \"log_level\": \"debug\", \"name\": \"Event Handler 1-36\", \"channels\": \"eh-channel-1-000646467154372\", \"output\": \"output-0.448179040972\", \"key_id\": 246021, \"type\": \"js\", \"event\": \"js-before-publish\", \"block_id\": 5642}", 
+                "method": "POST", 
                 "headers": {
-                    "Content-Length": [
-                        "532"
-                    ], 
-                    "Accept-Encoding": [
-                        "gzip,deflate"
-                    ], 
-                    "X-Session-Token": [
-                        "<secret-header>"
+                    "Content-Type": [
+                        "application/json"
                     ], 
                     "Host": [
                         "admin.pubnub.com"
@@ -107,73 +86,66 @@
                     "Accept": [
                         "application/json"
                     ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
                     "User-Agent": [
                         "Python-urllib/3.6"
+                    ], 
+                    "Content-Length": [
+                        "538"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
                     ], 
                     "Connection": [
                         "close"
                     ], 
                     "Cache-Control": [
                         "no-cache"
-                    ], 
-                    "Content-Type": [
-                        "application/json"
                     ]
                 }, 
-                "method": "POST", 
-                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/event_handler"
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/event_handler", 
+                "body": "{\"type\": \"js\", \"name\": \"Event Handler 1-36\", \"log_level\": \"debug\", \"key_id\": 246021, \"event\": \"js-before-publish\", \"code\": \"export default (request) => {\\n    console.log('Event Handler #1')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\", \"block_id\": 5950, \"channels\": \"eh-channel-1-05723061844147707\", \"output\": \"output-0.4622606553834502\"}"
             }, 
             "response": {
                 "status": {
-                    "message": "OK", 
-                    "code": 200
+                    "code": 200, 
+                    "message": "OK"
                 }, 
                 "headers": {
-                    "content-length": [
-                        "797"
-                    ], 
-                    "access-control-allow-headers": [
-                        "Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With,X-Session-Token,X-Portal"
-                    ], 
-                    "set-cookie": [
-                        "AWSELB=EDFDE76D14A4BD43368BDD485C4B8EAA74F0746F5D0C6470CE1FBA00D104D03C4226A1E14FADB3006461760FD8CF81BDF5A60D544F7D7A5D6623361EB16AB5A9F19F600FFC;PATH=/;MAX-AGE=3600"
-                    ], 
-                    "expires": [
-                        "-1"
-                    ], 
-                    "x-access-level": [
-                        "user"
-                    ], 
-                    "cache-control": [
+                    "Cache-Control": [
                         "no-cache, no-store", 
                         "no-cache=\"set-cookie\""
                     ], 
-                    "connection": [
-                        "Close"
+                    "Content-Length": [
+                        "803"
                     ], 
-                    "pragma": [
+                    "Cache-control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Pragma": [
                         "no-cache"
                     ], 
-                    "access-control-allow-credentials": [
-                        "true"
+                    "Expires": [
+                        "-1"
                     ], 
-                    "date": [
-                        "Mon, 30 Jan 2017 17:33:13 GMT"
+                    "Connection": [
+                        "Close"
                     ], 
-                    "access-control-allow-origin": [
-                        "*"
-                    ], 
-                    "access-control-allow-methods": [
-                        "GET, POST, PUT, DELETE, OPTIONS"
-                    ], 
-                    "content-type": [
-                        "application/json"
+                    "Date": [
+                        "Mon, 06 Feb 2017 03:08:38 GMT"
                     ]
                 }, 
                 "body": {
-                    "string": "{\"status\":200,\"message\":\"OK\",\"payload\":{\"status\":1,\"modified_date\":\"Mon, 30 Jan 2017 17:33:13 GMT\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #1')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"create_user_id\":214382,\"block_id\":5642,\"output\":\"output-0.448179040972\",\"log_level\":\"debug\",\"id\":5367,\"channels\":\"eh-channel-1-000646467154372\",\"created_date\":\"Mon, 30 Jan 2017 09:33:13 GMT\",\"key_id\":\"246021\",\"type\":\"js\",\"event\":\"js-before-publish\",\"name\":\"Event Handler 1-36\"}}"
+                    "string": "{\"status\":200,\"payload\":{\"name\":\"Event Handler 1-36\",\"create_user_id\":214382,\"key_id\":\"246021\",\"id\":5554,\"created_date\":\"Sun, 05 Feb 2017 19:08:38 GMT\",\"channels\":\"eh-channel-1-05723061844147707\",\"type\":\"js\",\"event\":\"js-before-publish\",\"log_level\":\"debug\",\"status\":1,\"block_id\":5950,\"code\":\"export default (request) => {\\n    console.log('Event Handler #1')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"modified_date\":\"Mon, 06 Feb 2017 03:08:38 GMT\",\"output\":\"output-0.4622606553834502\"},\"message\":\"OK\"}"
                 }
             }
         }
-    ]
+    ], 
+    "version": 1
 }

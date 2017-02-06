@@ -2,89 +2,75 @@
     "version": 1, 
     "interactions": [
         {
-            "request": {
-                "body": "{\"block_id\": 5640, \"name\": \"Ansible block v35-changed\", \"key_id\": 246021, \"id\": 5640, \"description\": \"Description changed from Ansible script\"}", 
-                "headers": {
-                    "Content-Length": [
-                        "143"
-                    ], 
-                    "Accept-Encoding": [
-                        "gzip,deflate"
-                    ], 
-                    "X-Session-Token": [
-                        "<secret-header>"
-                    ], 
-                    "Host": [
-                        "admin.pubnub.com"
-                    ], 
-                    "Accept": [
-                        "application/json"
-                    ], 
-                    "User-Agent": [
-                        "Python-urllib/3.5"
-                    ], 
-                    "Connection": [
-                        "close"
-                    ], 
-                    "Cache-Control": [
-                        "no-cache"
-                    ], 
-                    "Content-Type": [
-                        "application/json"
-                    ]
-                }, 
-                "method": "PUT", 
-                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/5640"
-            }, 
             "response": {
                 "status": {
                     "message": "OK", 
                     "code": 200
                 }, 
+                "body": {
+                    "string": "{\"message\":\"OK\",\"status\":200}"
+                }, 
                 "headers": {
-                    "content-length": [
-                        "38"
+                    "Connection": [
+                        "Close"
                     ], 
-                    "access-control-allow-headers": [
-                        "Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With,X-Session-Token,X-Portal"
+                    "Date": [
+                        "Mon, 06 Feb 2017 03:07:44 GMT"
                     ], 
-                    "set-cookie": [
-                        "AWSELB=EDFDE76D14A4BD43358BDD485C4B8EAA74F0746F5DEF262D533896018DF69E53A2BCD800033F868CF679BE20B4599B9586C80A3D68DBBADA1CAABCA256F04E8A08041031C4;PATH=/;MAX-AGE=3600"
-                    ], 
-                    "expires": [
+                    "Expires": [
                         "-1"
                     ], 
-                    "x-access-level": [
-                        "user"
-                    ], 
-                    "cache-control": [
+                    "Cache-control": [
                         "no-cache, no-store", 
                         "no-cache=\"set-cookie\""
                     ], 
-                    "connection": [
-                        "Close"
-                    ], 
-                    "pragma": [
+                    "Pragma": [
                         "no-cache"
                     ], 
-                    "access-control-allow-credentials": [
-                        "true"
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
                     ], 
-                    "date": [
-                        "Mon, 30 Jan 2017 17:32:19 GMT"
-                    ], 
-                    "access-control-allow-origin": [
-                        "*"
-                    ], 
-                    "access-control-allow-methods": [
-                        "GET, POST, PUT, DELETE, OPTIONS"
-                    ], 
-                    "content-type": [
+                    "Content-Type": [
                         "application/json"
+                    ], 
+                    "Content-Length": [
+                        "38"
                     ]
-                }, 
-                "body": {
-                    "string": "{\"status\":200,\"message\":\"OK\"}"
+                }
+            }, 
+            "request": {
+                "method": "PUT", 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/5948", 
+                "body": "{\"key_id\": 246021, \"description\": \"Description changed from Ansible script\", \"block_id\": 5948, \"name\": \"Ansible block v35-changed\", \"id\": 5948}", 
+                "headers": {
+                    "User-Agent": [
+                        "Python-urllib/3.5"
+                    ], 
+                    "Host": [
+                        "admin.pubnub.com"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "Content-Length": [
+                        "143"
+                    ], 
+                    "Connection": [
+                        "close"
+                    ]
                 }
             }
         }

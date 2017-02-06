@@ -4,7 +4,6 @@
   gather_facts: False
   tasks:
     - name: Create '{{ lookup("env","BLOCK_NAME") }}'
-      ignore_errors: True
       register: module_cache
       pubnub_blocks:
         email: '{{ lookup("env","PUBNUB_USER") }}'
@@ -13,8 +12,8 @@
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Rename '{{ lookup("env","BLOCK_NAME") }}' and set description
-      ignore_errors: True
       register: module_cache
       pubnub_blocks:
         cache: '{{ module_cache }}'
@@ -24,8 +23,8 @@
         description: 'Description changed from Ansible script'
         changes:
           name: '{{ lookup("env","NEW_BLOCK_NAME") }}'
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Rename '{{ lookup("env","BLOCK_NAME") }}' and set description (no changes)
-      ignore_errors: True
       register: module_cache
       pubnub_blocks:
         cache: '{{ module_cache }}'
@@ -34,6 +33,7 @@
         name: '{{ lookup("env","NEW_BLOCK_NAME") }}'
         changes:
           name: '{{ lookup("env","NEW_BLOCK_NAME") }}'
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Delete '{{ lookup("env","NEW_BLOCK_NAME") }}'
       register: module_cache
       pubnub_blocks:
@@ -42,6 +42,7 @@
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","NEW_BLOCK_NAME") }}'
         state: absent
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Delete '{{ lookup("env","NEW_BLOCK_NAME") }}' (no changes)
       pubnub_blocks:
         cache: '{{ module_cache }}'
@@ -49,3 +50,4 @@
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","NEW_BLOCK_NAME") }}'
         state: absent
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'

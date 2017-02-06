@@ -11,3 +11,4 @@
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
         state: absent
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'

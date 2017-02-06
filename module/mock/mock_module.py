@@ -1,12 +1,37 @@
 #!/usr/bin/python
 # coding: utf-8
 from vcr.stubs import VCRHTTPSConnection
-from ansible.module_utils._text import to_text
+from vcr.serializers import jsonserializer
+from vcr.serializers import compat
+from ansible.module_utils.six import PY3
+from ansible.module_utils._text import to_bytes, to_text
 import ansible.module_utils.urls
 import logging
 import json
+import six
 import vcr
 import os
+
+
+class FixtureSerializer(object):
+    """Serialize and deserialize request fixtures."""
+
+    @staticmethod
+    def deserialize(cassette_string):
+        data = jsonserializer.deserialize(cassette_string=cassette_string)
+        if PY3:
+            for interaction in data['interactions']:
+                response_body = interaction['response']['body']['string']
+                interaction['response']['body']['string'] = to_bytes(response_body)
+            print('HELLO FOR PYTHON3: {0}'.format(data))
+            return data
+        else:
+            return data
+
+    @staticmethod
+    def serialize(cassette_dict):
+        print('SERIALIZE NOW!')
+        return jsonserializer.serialize(cassette_dict=cassette_dict)
 
 
 class VCRModule(object):
@@ -17,8 +42,8 @@ class VCRModule(object):
     """
 
     def __init__(self, log_file_path, fixtures_dir, fixture_name, fixture_store_format='json',
-                 create_fixture=True, secret_headers_fields=None, secret_post_body_fields=None,
-                 secret_response_body_fields=None):
+                 create_fixture=True, redundant_headers_fields=None, secret_headers_fields=None,
+                 secret_post_body_fields=None, secret_response_body_fields=None):
         """Construct account model using service response.
 
         :type log_file_path:                str
@@ -31,16 +56,22 @@ class VCRModule(object):
         :type fixture_store_format:         str
         :param fixture_store_format:        One of available fixture storing format: yaml, json
         :type create_fixture:               bool
-        :param create_fixture:              Whether requests should be mocked and fixture files generated.
+        :param create_fixture:              Whether requests should be mocked and fixture files
+                                            generated.
+        :type redundant_headers_fields:     list
+        :param redundant_headers_fields:    Reference on list of headers which is not required
+                                            during requests processing.
         :type secret_headers_fields:        list
-        :param secret_headers_fields:       Reference on list of fields which should be hidden from header
-                                            fields.
+        :param secret_headers_fields:       Reference on list of fields which should be hidden from
+                                            header fields.
         :type secret_post_body_fields:      list
-        :param secret_post_body_fields:     Reference on list of fields which should be hidden from POST'ed
-                                            JSON data (if content-type is set to application/json).
+        :param secret_post_body_fields:     Reference on list of fields which should be hidden from
+                                            POST'ed JSON data (if content-type is set to
+                                            application/json).
         :type secret_response_body_fields:  list
         :param secret_response_body_fields: Reference on list of fields which should be hidden from
-                                            response JSON body (if response type is application/json).
+                                            response JSON body (if response type is
+                                            application/json).
         :rtype:  VCRModule
         :return: Initialized VCR module.
         """
@@ -53,6 +84,7 @@ class VCRModule(object):
         self._fixture_name = fixture_name
         self._fixture_store_format = fixture_store_format
         self._create_fixture = create_fixture
+        self._redundant_headers_fields = redundant_headers_fields
         self._secret_headers_fields = secret_headers_fields
         self._secret_post_body_fields = secret_post_body_fields
         self._secret_response_body_fields = secret_response_body_fields
@@ -75,14 +107,21 @@ class VCRModule(object):
             for field_name in self._secret_post_body_fields:
                 filter_post_body.append((field_name, '<secret-value>'))
 
-        return vcr.VCR(
-            custom_patches=[(ansible.module_utils.urls, 'CustomHTTPSConnection', VCRHTTPSConnection)],
-            serializer=self._fixture_store_format,
+        patch = (ansible.module_utils.urls, 'CustomHTTPSConnection', VCRHTTPSConnection)
+        path_generator = self._cassette_name_generator(path=self._fixtures_dir,
+                                                       name=self._fixture_name)
+        before_record = VCRModule._clear_sensitive_data(secret_fields=self._secret_response_body_fields,
+                                                        redundant_headers_fields=self._redundant_headers_fields)
+        pn_vcr = vcr.VCR(
+            custom_patches=[patch], serializer=self._fixture_store_format,
+            # custom_patches=[patch], serializer='pn_fixture',
             path_transformer=vcr.VCR.ensure_suffix('.{0}'.format(self._fixture_store_format)),
             record_mode='all' if self._create_fixture else 'none', decode_compressed_response=True,
-            func_path_generator=self._cassette_name_generator(path=self._fixtures_dir, name=self._fixture_name),
-            before_record_response=VCRModule._clear_sensitive_data(self._secret_response_body_fields),
+            func_path_generator=path_generator, before_record_response=before_record,
             filter_headers=filter_headers, filter_post_data_parameters=filter_post_body)
+        # pn_vcr.register_serializer('pn_fixture', FixtureSerializer())
+
+        return pn_vcr
 
     def inject(self, cls, function_name):
         """Inject mocking tool into target class.
@@ -94,7 +133,8 @@ class VCRModule(object):
         :type function_name:  str
         :param function_name: Name of function which should be wrapped with mocking code.
         """
-        VCRModule._increase_fixture_sequence_number(counter_dir=self._fixtures_dir, fixture_name=self._fixture_name)
+        VCRModule._increase_fixture_sequence_number(counter_dir=self._fixtures_dir,
+                                                    fixture_name=self._fixture_name)
         setattr(cls, function_name, self._vcr().use_cassette(getattr(cls, function_name)))
 
     @staticmethod
@@ -161,12 +201,16 @@ class VCRModule(object):
             counter.writelines([str(sequence_number + 1)])
 
     @staticmethod
-    def _clear_sensitive_data(fields):
+    def _clear_sensitive_data(secret_fields, redundant_headers_fields):
         """Hide values for fields from passed list.
 
         It is better not to show values which has been received from PubNub service.
-        :type fields:  list
-        :param fields: Reference on list of fields for which values should be hidden.
+        :type secret_fields:             list
+        :param secret_fields:            Reference on list of fields for which values should be
+                                         hidden.
+        :type redundant_headers_fields:  list
+        :param redundant_headers_fields: Reference on list of headers which is not required during
+                                         requests processing.
         :return: Reference on method which should be called by mock library.
         """
         def before_record_response(response):
@@ -178,8 +222,14 @@ class VCRModule(object):
             :rtype:  dict
             :return: Modified response object.
             """
+            headers = list(response['headers'].keys())
+            """:type : list"""
+            for header in (redundant_headers_fields or list()):
+                if header in headers:
+                    del response['headers'][header]
             json_response = json.loads(to_text(response['body']['string']))
-            VCRModule._replace_values_for_keys(obj=json_response, keys=fields, new_value='<secret-value>')
+            VCRModule._replace_values_for_keys(obj=json_response, keys=secret_fields,
+                                               new_value='<secret-value>')
             response['body']['string'] = json.dumps(json_response, separators=(',', ':'))
 
             return response

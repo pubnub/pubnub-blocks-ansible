@@ -13,6 +13,7 @@ TextStyle = TextStyleStructure(BOLD='\033[1m', UNDERLINE='\033[4m', END='\033[0m
 # Retrieve version of Python on which script has been launched.
 version = str(sys.version_info[0]) + "." + str(sys.version_info[1])
 
+
 def run(command):
     """Run 'command' and wait for it's completion to get results.
 

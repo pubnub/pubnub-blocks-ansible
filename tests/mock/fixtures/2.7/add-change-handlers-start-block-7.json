@@ -2,14 +2,53 @@
     "version": 1, 
     "interactions": [
         {
-            "request": {
-                "body": "{\"status\": 1, \"code\": \"export default (request) => {\\n    console.log('Event Handler #2 (altered)')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\", \"block_id\": 5641, \"channels\": \"eh-channel-1-0125025521326\", \"key_id\": \"246021\", \"create_user_id\": 214382, \"event\": \"js-before-publish\", \"modified_date\": \"Mon, 30 Jan 2017 17:32:33 GMT\", \"log_level\": \"debug\", \"name\": \"Event Handler 2-27\", \"id\": 5275, \"created_date\": \"Mon, 30 Jan 2017 09:32:33 GMT\", \"output\": \"output-0.56602714218\", \"type\": \"js\"}", 
+            "response": {
+                "body": {
+                    "string": "{\"message\":\"OK\",\"status\":200}"
+                }, 
                 "headers": {
-                    "Content-Length": [
-                        "691"
+                    "Date": [
+                        "Mon, 06 Feb 2017 03:08:03 GMT"
                     ], 
+                    "Cache-control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Content-Length": [
+                        "38"
+                    ], 
+                    "Connection": [
+                        "Close"
+                    ]
+                }, 
+                "status": {
+                    "message": "OK", 
+                    "code": 200
+                }
+            }, 
+            "request": {
+                "body": "{\"log_level\": \"debug\", \"output\": \"output-0.693749719954226\", \"key_id\": \"246021\", \"name\": \"Event Handler 2-27\", \"block_id\": 5949, \"channels\": \"eh-channel-1-027367169779663425\", \"type\": \"js\", \"id\": 5552, \"status\": 1, \"code\": \"export default (request) => {\\n    console.log('Event Handler #2 (altered)')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\", \"create_user_id\": 214382, \"modified_date\": \"Mon, 06 Feb 2017 03:07:58 GMT\", \"event\": \"js-before-publish\", \"created_date\": \"Sun, 05 Feb 2017 19:07:58 GMT\"}", 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/event_handler/5552", 
+                "method": "PUT", 
+                "headers": {
                     "Accept-Encoding": [
                         "gzip,deflate"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache"
                     ], 
                     "X-Session-Token": [
                         "<secret-header>"
@@ -20,71 +59,18 @@
                     "Accept": [
                         "application/json"
                     ], 
-                    "User-Agent": [
-                        "Python-urllib/2.7"
+                    "Content-Length": [
+                        "700"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
                     ], 
                     "Connection": [
                         "close"
                     ], 
-                    "Cache-Control": [
-                        "no-cache"
-                    ], 
-                    "Content-Type": [
-                        "application/json"
+                    "User-Agent": [
+                        "Python-urllib/2.7"
                     ]
-                }, 
-                "method": "PUT", 
-                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/event_handler/5275"
-            }, 
-            "response": {
-                "status": {
-                    "message": "OK", 
-                    "code": 200
-                }, 
-                "headers": {
-                    "content-length": [
-                        "38"
-                    ], 
-                    "access-control-allow-headers": [
-                        "Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With,X-Session-Token,X-Portal"
-                    ], 
-                    "set-cookie": [
-                        "AWSELB=EDFDE76D14A4BD43278BDD485C4B8EAA74F0746F5DEF262D533896018DF69E53A2BCD800033F868CF679BE20B4599B9586C80A3D68DBBADA1CAABCA256F04E8A08041031C4;PATH=/;MAX-AGE=3600"
-                    ], 
-                    "expires": [
-                        "-1"
-                    ], 
-                    "x-access-level": [
-                        "user"
-                    ], 
-                    "cache-control": [
-                        "no-cache, no-store", 
-                        "no-cache=\"set-cookie\""
-                    ], 
-                    "connection": [
-                        "Close"
-                    ], 
-                    "pragma": [
-                        "no-cache"
-                    ], 
-                    "access-control-allow-credentials": [
-                        "true"
-                    ], 
-                    "date": [
-                        "Mon, 30 Jan 2017 17:32:39 GMT"
-                    ], 
-                    "access-control-allow-origin": [
-                        "*"
-                    ], 
-                    "access-control-allow-methods": [
-                        "GET, POST, PUT, DELETE, OPTIONS"
-                    ], 
-                    "content-type": [
-                        "application/json"
-                    ]
-                }, 
-                "body": {
-                    "string": "{\"status\":200,\"message\":\"OK\"}"
                 }
             }
         }

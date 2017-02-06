@@ -13,8 +13,9 @@ if not os.path.exists(inventory_file_location):
     inventory_file_content = '[blocks]\nlocalhost ansible_connection=local ansible_python_interpreter={0}'
     run('echo \'{0}\' >{1}'.format(inventory_file_content, inventory_file_location).format(sys.executable))
 
-# Temporary disabled service results mocking.
-exit(0)
+# Temporary disabled service results mocking for Python 3+.
+if not version.startswith('2'):
+    exit(0)
 
 # Prepare fixtures directory
 fixtures_directory = 'tests/mock/fixtures/{0}'.format(version)
@@ -38,10 +39,10 @@ if not os.path.exists(module_copy_location):
     move(module_location, module_copy_location)
 
 # Inject VCR initialization code
-with open(module_copy_location, mode='r') as blocks_module:
+with open(module_copy_location, mode='rt') as blocks_module:
     module_code_lines = blocks_module.readlines()
     injection_line_idx = module_code_lines.index('def main():\n') - 1
-    with open(module_injection_location, mode='r') as injection_code:
+    with open(module_injection_location, mode='rt') as injection_code:
         module_code_lines.insert(injection_line_idx, '\n')
         injection_line_idx += 1
         injection_lines = injection_code.readlines()
@@ -49,5 +50,5 @@ with open(module_copy_location, mode='r') as blocks_module:
             module_code_lines.insert(injection_line_idx, line)
             injection_line_idx += 1
         module_code_lines.insert(injection_line_idx, '\n')
-    with open(module_location, mode='w') as modified_blocks_module:
+    with open(module_location, mode='wt') as modified_blocks_module:
         modified_blocks_module.writelines(module_code_lines)

@@ -4,7 +4,6 @@
   gather_facts: False
   tasks:
     - name: Create '{{ lookup("env","BLOCK_NAME") }}'
-      ignore_errors: True
       register: module_cache
       pubnub_blocks:
         email: '{{ lookup("env","PUBNUB_USER") }}'
@@ -13,8 +12,8 @@
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
         state: present
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Add two event handlers to '{{ lookup("env","BLOCK_NAME") }}'
-      ignore_errors: True
       register: module_cache
       pubnub_blocks:
         cache: '{{ module_cache }}'
@@ -33,8 +32,8 @@
             name: '{{ lookup("env","EVENT_HANDLER_2_NAME") }}'
             channels: '{{ lookup("env","EVENT_HANDLER_2_CHANNEL_NAME") }}'
             event: 'js-before-publish'
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Start '{{ lookup("env","BLOCK_NAME") }}' block
-      ignore_errors: True
       register: module_cache
       pubnub_blocks:
         cache: '{{ module_cache }}'
@@ -42,8 +41,8 @@
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
         state: start
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Start '{{ lookup("env","BLOCK_NAME") }}' block (no changes)
-      ignore_errors: True
       register: module_cache
       pubnub_blocks:
         cache: '{{ module_cache }}'
@@ -51,8 +50,8 @@
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
         state: start
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Delete '{{ lookup("env","BLOCK_NAME") }}'
-      ignore_errors: True
       register: module_cache
       pubnub_blocks:
         cache: '{{ module_cache }}'
@@ -60,11 +59,12 @@
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
         state: absent
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Delete '{{ lookup("env","BLOCK_NAME") }}' (no changes)
-      ignore_errors: True
       pubnub_blocks:
         cache: '{{ module_cache }}'
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
         state: absent
+        validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
