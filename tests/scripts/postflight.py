@@ -139,55 +139,52 @@ def fixture_with_normalized_vcr_format(fixture_content):
     return re.sub('({\\n)^(\\s+"interactions[\\d\\D]+\\])(?:,\\n)(\\s+"vers.+)(\\n})',
                   string=fixture_content, repl='\\1\\3,\\n\\2\\4', flags=(re.I | re.M))
 
+# Restore module file from copy
+module_location = 'module/pubnub_blocks.py'
+module_copy_location = '.'.join([module_location, 'orig'])
+if os.path.exists(module_location) and os.path.exists(module_copy_location):
+    os.remove(module_location)
+if os.path.exists(module_copy_location):
+    move(module_copy_location, module_location)
 
-
-# Temporary disabled service results mocking for Python 3+.
-if version.startswith('2'):
-    # Restore module file from copy
-    module_location = 'module/pubnub_blocks.py'
-    module_copy_location = '.'.join([module_location, 'orig'])
-    if os.path.exists(module_location) and os.path.exists(module_copy_location):
-        os.remove(module_location)
-    if os.path.exists(module_copy_location):
-        move(module_copy_location, module_location)
-
-
-    # Print out VCR operation results.
-    fixtures_directory = 'tests/mock/fixtures'
-    used_fixtures_directory = '/'.join([fixtures_directory, version])
-    fixture_dir_files = os.listdir(used_fixtures_directory)
-    for file_name in fixture_dir_files:
-        full_path = '/'.join([used_fixtures_directory, file_name])
-        # Remove old module calls counter file.
-        if file_name.endswith('.counter'):
-            os.remove(full_path)
-        if file_name.endswith('.log'):
-            with open(full_path, mode='r') as log:
-                print('\nMock requests stats:\n{0}'.format('-' * 20))
-                log_lines = log.readlines()
-                for log_line in log_lines:
-                    log_line = log_line.strip('\n').replace('INFO:vcr.stubs:', '')
-                    if log_line.endswith('sending to real server'):
-                        log_line = '{0}BAD {1}{2}'.format(TextColor.RED, log_line, TextColor.END)
-                    else:
-                        log_line = '{0}OK  {1}{2}'.format(TextColor.GREEN, log_line, TextColor.END)
-                    print(log_line)
-                print('{0}'.format('-' * 20))
+# Temporary disabled service results mocking.
 exit(0)
 
+# Print out VCR operation results.
+fixtures_directory = 'tests/mock/fixtures'
+used_fixtures_directory = '/'.join([fixtures_directory, version])
+fixture_dir_files = os.listdir(used_fixtures_directory)
+for file_name in fixture_dir_files:
+    full_path = '/'.join([used_fixtures_directory, file_name])
+    # Remove old module calls counter file.
+    if file_name.endswith('.counter'):
+        os.remove(full_path)
+    if file_name.endswith('.log'):
+        with open(full_path, mode='r') as log:
+            print('\nMock requests stats:\n{0}'.format('-' * 20))
+            log_lines = log.readlines()
+            for log_line in log_lines:
+                log_line = log_line.strip('\n').replace('INFO:vcr.stubs:', '')
+                if log_line.endswith('sending to real server'):
+                    log_line = '{0}BAD {1}{2}'.format(TextColor.RED, log_line, TextColor.END)
+                else:
+                    log_line = '{0}OK  {1}{2}'.format(TextColor.GREEN, log_line, TextColor.END)
+                print(log_line)
+            print('{0}'.format('-' * 20))
+
 # Normalize fixtures
-# for file_name in fixture_dir_files:
-#     if file_name.endswith('.json'):
-#         fixture_path = '/'.join([used_fixtures_directory, file_name])
-#         with open(fixture_path, mode='rt') as fixture_file:
-#             fixture = fixture_file.read()
-#             updated_fixture_content = normalized_fixture(fixture)
-#             try:
-#                 json.loads(updated_fixture_content)
-#                 fixture_file.write(updated_fixture_content)
-#                 print('Write normalized fixture: {0}'.format(file_name))
-#             except ValueError:
-#                 print('Normalization failed for: {0}'.format(file_name))
+for file_name in fixture_dir_files:
+    if file_name.endswith('.json'):
+        fixture_path = '/'.join([used_fixtures_directory, file_name])
+        with open(fixture_path, mode='rt') as fixture_file:
+            fixture = fixture_file.read()
+            updated_fixture_content = normalized_fixture(fixture)
+            try:
+                json.loads(updated_fixture_content)
+                fixture_file.write(updated_fixture_content)
+                print('Write normalized fixture: {0}'.format(file_name))
+            except ValueError:
+                print('Normalization failed for: {0}'.format(file_name))
 
 
 # Create missing fixtures.
