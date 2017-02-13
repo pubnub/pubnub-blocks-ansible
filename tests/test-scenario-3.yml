@@ -122,7 +122,7 @@
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
-        state: start
+        state: started
         validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Start '{{ lookup("env","BLOCK_NAME") }}' block (no changes)
       pubnub_blocks:
@@ -130,5 +130,5 @@
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
-        state: start
+        state: started
         validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'

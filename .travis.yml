@@ -15,6 +15,7 @@ before_install:
 install:
   - pip install ansible
   - pip install vcrpy
+  - pip install pubnub-blocks-client
 
 script:
   - python tests/scripts/preflight.py

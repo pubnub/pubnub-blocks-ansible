@@ -40,7 +40,7 @@
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
-        state: start
+        state: started
         validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Start '{{ lookup("env","BLOCK_NAME") }}' block (no changes)
       register: module_cache
@@ -49,7 +49,7 @@
         application: '{{ lookup("env","PUBNUB_APP_NAME") }}'
         keyset: '{{ lookup("env","PUBNUB_APP_KEYSET_NAME") }}'
         name: '{{ lookup("env","BLOCK_NAME") }}'
-        state: start
+        state: started
         validate_certs: '{{ lookup("env", "VALIDATE_CERTIFICATES") }}'
     - name: Delete '{{ lookup("env","BLOCK_NAME") }}'
       register: module_cache
