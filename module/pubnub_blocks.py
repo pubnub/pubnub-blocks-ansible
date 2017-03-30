@@ -57,7 +57,7 @@ options:
   cache:
     description: >
        In case if single play use blocks management module few times it is
-       preferred to enabled \'caching\' by making previous module to share
+       preferred to enabled 'caching' by making previous module to share
        gathered artifacts and pass them to this parameter.
     required: false
     default: {}
@@ -73,7 +73,7 @@ options:
     required: true
   keyset:
     description:
-      - Name of application\'s keys set which is bound to managed blocks.
+      - Name of application's keys set which is bound to managed blocks.
     required: true
   state:
     description:
