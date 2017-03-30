@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding: utf-8
-from pn_test_utils import TextColor, TextStyle, version, run
+from pn_test_utils import TextColor, TextStyle, run, version
 import platform
 import random
 import time
@@ -23,24 +23,29 @@ def check_results(res, operations=0, changes=0, failed=0):
     check_results_match = re.search(pattern=results_search_pattern, string=res)
     if check_results_match is not None:
         values_doesnt_match = operations != int(check_results_match.group(1))
-        values_doesnt_match = values_doesnt_match or changes != int(check_results_match.group(2))
-        values_doesnt_match = values_doesnt_match or failed != int(check_results_match.group(3))
+        values_doesnt_match = (values_doesnt_match
+                               or changes != int(check_results_match.group(2)))
+        values_doesnt_match = (values_doesnt_match
+                               or failed != int(check_results_match.group(3)))
         if values_doesnt_match:
             actual_operations_count = int(check_results_match.group(1))
             actual_changes_count = int(check_results_match.group(2))
             actual_failure_count = int(check_results_match.group(3))
             if operations != int(check_results_match.group(1)):
-                print('{0}Unexpected number of tasks. Expected {1} got {2}.{3}'.format(TextColor.RED, operations,
-                                                                                       actual_operations_count,
-                                                                                       TextColor.END))
+                frmt = '{0}Unexpected number of tasks. Expected {1} ' \
+                       'got {2}.{3}'
+                print(frmt.format(TextColor.RED, operations,
+                                  actual_operations_count, TextColor.END))
             if changes != int(check_results_match.group(2)):
-                print('{0}Unexpected number of changes. Expected {1} got {2}.{3}'.format(TextColor.RED, changes,
-                                                                                         actual_changes_count,
-                                                                                         TextColor.END))
+                frmt = '{0}Unexpected number of changes. Expected {1} ' \
+                       'got {2}.{3}'
+                print(frmt.format(TextColor.RED, changes, actual_changes_count,
+                                  TextColor.END))
             if failed != int(check_results_match.group(3)):
-                print('{0}Unexpected number of failures. Expected {1} got {2}.{3}'.format(TextColor.RED, failed,
-                                                                                          actual_failure_count,
-                                                                                          TextColor.END))
+                frmt = '{0}Unexpected number of failures. Expected {1} ' \
+                       'got {2}.{3}'
+                print(frmt.format(TextColor.RED, failed, actual_failure_count,
+                                  TextColor.END))
             print('EXPECTED RESPONSE FORMAT: {0}'.format(res))
             exit(1)
     else:
@@ -48,19 +53,17 @@ def check_results(res, operations=0, changes=0, failed=0):
         exit(1)
 
 # Prepare environment
-print('Python version: {0}{1}{2}'.format(TextStyle.BOLD, version, TextStyle.END))
-os.environ['PYTHON_VERSION'] = version
 os.environ['VALIDATE_CERTIFICATES'] = str(platform.system().lower() != 'darwin')
 os.environ['RECORD_TEST_FIXTURES'] = 'False'
-os.environ['TEST_FIXTURES_DIR'] = 'mock/fixtures/{0}'.format(version)
+os.environ['TEST_FIXTURES_DIR'] = 'mock/fixtures'
 os.environ['TEST_LOG_FILE_PATH'] = '{0}/pnapivcr_debug.log'.format(os.environ['TEST_FIXTURES_DIR'])
-os.environ['BAD_BLOCK_NAME'] = 'Ansible Block v{0}'.format(version)
-os.environ['BLOCK_NAME'] = 'Ansible block v{0}'.format(version).replace('.', '')
+os.environ['BAD_BLOCK_NAME'] = 'Ansible Block.'
+os.environ['BLOCK_NAME'] = 'Ansible block'
 os.environ['NEW_BLOCK_NAME'] = os.environ['BLOCK_NAME'] + '-changed'
-os.environ['EVENT_HANDLER_1_NAME'] = 'Event Handler 1-{0}'.format(version).replace('.', '')
-os.environ['EVENT_HANDLER_2_NAME'] = 'Event Handler 2-{0}'.format(version).replace('.', '')
-os.environ['EVENT_HANDLER_1_CHANNEL_NAME'] = 'eh-channel-1-{0}'.format(random.random()).replace('.', '')
-os.environ['EVENT_HANDLER_2_CHANNEL_NAME'] = 'eh-channel-1-{0}'.format(random.random()).replace('.', '')
+os.environ['EVENT_HANDLER_1_NAME'] = 'Event Handler 1'
+os.environ['EVENT_HANDLER_2_NAME'] = 'Event Handler 2'
+os.environ['EVENT_HANDLER_1_CHANNEL_NAME'] = 'eh-channel-1'
+os.environ['EVENT_HANDLER_2_CHANNEL_NAME'] = 'eh-channel-2'
 expected_pass = 'expected to {0}{1}pass{2}'.format(TextColor.YELLOW, TextStyle.UNDERLINE, TextStyle.END)
 expected_fail = 'expected to {0}{1}fail{2}'.format(TextColor.RED, TextStyle.UNDERLINE, TextStyle.END)
 expected_ignore = 'expected to {0}{1}no changes{2}'.format(TextColor.GREEN, TextStyle.UNDERLINE, TextStyle.END)

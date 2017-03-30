@@ -1,3 +1,5 @@
+import sys
+import os
 sys.path.insert(0, '{0}/../module/mock'.format(os.environ['PWD']))
 from mock_module import VCRModule
 
@@ -18,4 +20,4 @@ vcr_module = VCRModule(log_file_path=os.environ.get('TEST_LOG_FILE_PATH'),
                        secret_headers_fields=secret_headers_fields,
                        secret_post_body_fields=secret_post_body_fields,
                        secret_response_body_fields=secret_response_body_fields)
-vcr_module.inject(cls=PubNubAPIClient, function_name='request')
+vcr_module.inject(function_name='_request')

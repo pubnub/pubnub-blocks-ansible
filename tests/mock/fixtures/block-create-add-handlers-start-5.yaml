@@ -1,0 +1,88 @@
+interactions:
+- request:
+    body: '{"block_id": 8543}'
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip,deflate']
+      Connection: [keep-alive]
+      Content-Length: ['18']
+      Content-Type: [application/json]
+      User-Agent: [python-requests/2.13.0]
+      X-Session-Token: [<secret-header>]
+    method: POST
+    uri: https://admin.pubnub.com/api/v1/blocks/key/246021/block/8543/stop
+  response:
+    body: {string: '{"status":200,"message":"OK"}'}
+    headers:
+      Cache-Control: ['no-cache, no-store', no-cache="set-cookie"]
+      Cache-control: ['no-cache, no-store', no-cache="set-cookie"]
+      Connection: [keep-alive]
+      Content-Length: ['38']
+      Content-Type: [application/json]
+      Date: ['Wed, 29 Mar 2017 20:55:06 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip,deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+      X-Session-Token: [<secret-header>]
+    method: GET
+    uri: https://admin.pubnub.com/api/v1/blocks/key/246021/block/8543
+  response:
+    body: {string: '{"status":200,"payload":[{"created_date":"Wed, 29 Mar 2017 13:54:55
+        GMT","state":"stopped","description":"No description provided for this block.","cloned_id":null,"template":0,"id":8543,"create_user_id":214382,"modified_user_id":214382,"state_change_date":"Wed,
+        29 Mar 2017 20:55:06 GMT","event_handlers":[{"created_date":"Wed, 29 Mar 2017
+        13:54:57 GMT","state":"stopped","event":"js-before-publish","block_id":8543,"type":"js","channel_groups":null,"id":7950,"create_user_id":214382,"modified_user_id":0,"code":"export
+        default (request) => {\n    console.log(''Event Handler #1'')\n    const pubnub
+        = require(''pubnub'');\n    const kvstore = require(''kvstore'');\n    const
+        xhr = require(''xhr'');\n\n    console.log(request); // Log the request envelope
+        passed\n    return request.ok(); // Return a promise when you''re done\n}","name":"Event
+        Handler 1","path":"","channels":"eh-channel-1","log_level":"debug","modified_date":"Wed,
+        29 Mar 2017 20:54:57 GMT","status":1,"test_payload":null,"rate":null,"output":"output-0.6742937459178331","order_index":0},{"created_date":"Wed,
+        29 Mar 2017 13:54:58 GMT","state":"stopped","event":"js-before-publish","block_id":8543,"type":"js","channel_groups":null,"id":7951,"create_user_id":214382,"modified_user_id":0,"code":"export
+        default (request) => {\n    console.log(''Event Handler #2'')\n    const pubnub
+        = require(''pubnub'');\n    const kvstore = require(''kvstore'');\n    const
+        xhr = require(''xhr'');\n\n    console.log(request); // Log the request envelope
+        passed\n    return request.ok(); // Return a promise when you''re done\n}","name":"Event
+        Handler 2","path":"","channels":"eh-channel-2","log_level":"debug","modified_date":"Wed,
+        29 Mar 2017 20:54:58 GMT","status":1,"test_payload":null,"rate":null,"output":"output-0.7265092855383476","order_index":0}],"modified_date":"Wed,
+        29 Mar 2017 20:55:06 GMT","key_id":246021,"status":1,"icon_url":null,"intended_state":"stopped","name":"Ansible
+        block"}],"message":"OK"}'}
+    headers:
+      Cache-control: ['no-cache, no-store', no-cache="set-cookie"]
+      Connection: [keep-alive]
+      Content-Type: [application/json]
+      Date: ['Wed, 29 Mar 2017 20:55:07 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      content-length: ['2631']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip,deflate']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.13.0]
+      X-Session-Token: [<secret-header>]
+    method: DELETE
+    uri: https://admin.pubnub.com/api/v1/blocks/key/246021/block/8543
+  response:
+    body: {string: '{"status":200,"message":"OK"}'}
+    headers:
+      Cache-Control: ['no-cache, no-store', no-cache="set-cookie"]
+      Cache-control: ['no-cache, no-store', no-cache="set-cookie"]
+      Connection: [keep-alive]
+      Content-Length: ['38']
+      Content-Type: [application/json]
+      Date: ['Wed, 29 Mar 2017 20:55:08 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+    status: {code: 200, message: OK}
+version: 1

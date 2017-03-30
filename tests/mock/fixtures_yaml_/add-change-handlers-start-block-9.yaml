@@ -1,0 +1,63 @@
+interactions:
+- request:
+    body: '{"block_id": 8542}'
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip,deflate']
+      Connection: [keep-alive]
+      Content-Length: ['18']
+      Content-Type: [application/json]
+      User-Agent: [python-requests/2.13.0]
+      X-Session-Token: [<secret-header>]
+    method: POST
+    uri: https://admin.pubnub.com/api/v1/blocks/key/246021/block/8542/start
+  response:
+    body: {string: '{"message":"OK","status":200}'}
+    headers:
+      Cache-Control: ['no-cache, no-store', no-cache="set-cookie"]
+      Cache-control: ['no-cache, no-store', no-cache="set-cookie"]
+      Connection: [keep-alive]
+      Content-Length: ['38']
+      Content-Type: [application/json]
+      Date: ['Wed, 29 Mar 2017 20:54:32 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip,deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+      X-Session-Token: [<secret-header>]
+    method: GET
+    uri: https://admin.pubnub.com/api/v1/blocks/key/246021/block/8542
+  response:
+    body: {string: '{"message":"OK","status":200,"payload":[{"state":"running","state_change_date":"Wed,
+        29 Mar 2017 20:54:31 GMT","intended_state":"running","event_handlers":[{"channel_groups":null,"state":"running","output":"output-0.1148173745200407","path":"","type":"js","log_level":"debug","id":7948,"order_index":0,"channels":"eh-channel-1","block_id":8542,"status":1,"create_user_id":214382,"rate":null,"modified_user_id":214382,"name":"Event
+        Handler 1","test_payload":null,"event":"js-after-publish","code":"export default
+        (request) => {\n    console.log(''Event Handler #1'')\n    const pubnub =
+        require(''pubnub'');\n    const kvstore = require(''kvstore'');\n    const
+        xhr = require(''xhr'');\n\n    console.log(request); // Log the request envelope
+        passed\n    return request.ok(); // Return a promise when you''re done\n}","modified_date":"Wed,
+        29 Mar 2017 20:54:27 GMT","created_date":"Wed, 29 Mar 2017 13:54:24 GMT"},{"channel_groups":null,"state":"running","output":"output-0.6687292002997415","path":"","type":"js","log_level":"debug","id":7949,"order_index":0,"channels":"eh-channel-2","block_id":8542,"status":1,"create_user_id":214382,"rate":null,"modified_user_id":214382,"name":"Event
+        Handler 2","test_payload":null,"event":"js-before-publish","code":"export
+        default (request) => {\n    console.log(''Event Handler #2 (altered)'')\n    const
+        pubnub = require(''pubnub'');\n    const kvstore = require(''kvstore'');\n    const
+        xhr = require(''xhr'');\n\n    console.log(request); // Log the request envelope
+        passed\n    return request.ok(); // Return a promise when you''re done\n}","modified_date":"Wed,
+        29 Mar 2017 20:54:29 GMT","created_date":"Wed, 29 Mar 2017 13:54:25 GMT"}],"id":8542,"cloned_id":null,"status":1,"name":"Ansible
+        block","create_user_id":214382,"modified_user_id":214382,"key_id":246021,"description":"No
+        description provided for this block.","template":0,"modified_date":"Wed, 29
+        Mar 2017 20:54:31 GMT","created_date":"Wed, 29 Mar 2017 13:54:22 GMT","icon_url":null}]}'}
+    headers:
+      Cache-Control: ['no-cache, no-store', no-cache="set-cookie"]
+      Connection: [keep-alive]
+      Content-Type: [application/json]
+      Date: ['Wed, 29 Mar 2017 20:54:35 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      content-length: ['2650']
+    status: {code: 200, message: OK}
+version: 1

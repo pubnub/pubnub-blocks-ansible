@@ -1,0 +1,186 @@
+{
+    "version": 1, 
+    "interactions": [
+        {
+            "request": {
+                "headers": {
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "Content-Length": [
+                        "18"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ]
+                }, 
+                "body": "{\"block_id\": 8538}", 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/8538/start", 
+                "method": "POST"
+            }, 
+            "response": {
+                "status": {
+                    "code": 200, 
+                    "message": "OK"
+                }, 
+                "headers": {
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "Content-Length": [
+                        "38"
+                    ], 
+                    "Cache-control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:07:54 GMT"
+                    ]
+                }, 
+                "body": {
+                    "string": "{\"message\":\"OK\",\"status\":200}"
+                }
+            }
+        }, 
+        {
+            "request": {
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ]
+                }, 
+                "body": null, 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/8538", 
+                "method": "GET"
+            }, 
+            "response": {
+                "status": {
+                    "code": 200, 
+                    "message": "OK"
+                }, 
+                "headers": {
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "content-length": [
+                        "2649"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:07:54 GMT"
+                    ]
+                }, 
+                "body": {
+                    "string": "{\"payload\":[{\"description\":\"No description provided for this block.\",\"icon_url\":null,\"modified_user_id\":214382,\"key_id\":246021,\"created_date\":\"Wed, 29 Mar 2017 13:07:44 GMT\",\"name\":\"Ansible block\",\"state\":\"pending\",\"create_user_id\":214382,\"modified_date\":\"Wed, 29 Mar 2017 20:07:52 GMT\",\"state_change_date\":\"Wed, 29 Mar 2017 20:07:52 GMT\",\"intended_state\":\"running\",\"event_handlers\":[{\"type\":\"js\",\"modified_user_id\":214382,\"channels\":\"eh-channel-1\",\"test_payload\":null,\"log_level\":\"debug\",\"path\":\"\",\"created_date\":\"Wed, 29 Mar 2017 13:07:45 GMT\",\"channel_groups\":null,\"block_id\":8538,\"state\":\"pending\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #1')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"event\":\"js-after-publish\",\"rate\":null,\"output\":\"output-0.634650705378397\",\"modified_date\":\"Wed, 29 Mar 2017 20:07:48 GMT\",\"name\":\"Event Handler 1\",\"id\":7943,\"status\":1,\"create_user_id\":214382,\"order_index\":0},{\"type\":\"js\",\"modified_user_id\":214382,\"channels\":\"eh-channel-2\",\"test_payload\":null,\"log_level\":\"debug\",\"path\":\"\",\"created_date\":\"Wed, 29 Mar 2017 13:07:46 GMT\",\"channel_groups\":null,\"block_id\":8538,\"state\":\"running\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #2 (altered)')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"event\":\"js-before-publish\",\"rate\":null,\"output\":\"output-0.2979925618800803\",\"modified_date\":\"Wed, 29 Mar 2017 20:07:50 GMT\",\"name\":\"Event Handler 2\",\"id\":7944,\"status\":1,\"create_user_id\":214382,\"order_index\":0}],\"template\":0,\"id\":8538,\"status\":1,\"cloned_id\":null}],\"message\":\"OK\",\"status\":200}"
+                }
+            }
+        }, 
+        {
+            "request": {
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ]
+                }, 
+                "body": null, 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/8538", 
+                "method": "GET"
+            }, 
+            "response": {
+                "status": {
+                    "code": 200, 
+                    "message": "OK"
+                }, 
+                "headers": {
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "content-length": [
+                        "2649"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:07:56 GMT"
+                    ]
+                }, 
+                "body": {
+                    "string": "{\"payload\":[{\"description\":\"No description provided for this block.\",\"icon_url\":null,\"modified_user_id\":214382,\"key_id\":246021,\"created_date\":\"Wed, 29 Mar 2017 13:07:44 GMT\",\"name\":\"Ansible block\",\"state\":\"running\",\"create_user_id\":214382,\"modified_date\":\"Wed, 29 Mar 2017 20:07:52 GMT\",\"state_change_date\":\"Wed, 29 Mar 2017 20:07:52 GMT\",\"intended_state\":\"running\",\"template\":0,\"event_handlers\":[{\"type\":\"js\",\"modified_user_id\":214382,\"channels\":\"eh-channel-1\",\"event\":\"js-after-publish\",\"log_level\":\"debug\",\"test_payload\":null,\"created_date\":\"Wed, 29 Mar 2017 13:07:45 GMT\",\"channel_groups\":null,\"block_id\":8538,\"state\":\"running\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #1')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"rate\":null,\"output\":\"output-0.634650705378397\",\"create_user_id\":214382,\"modified_date\":\"Wed, 29 Mar 2017 20:07:48 GMT\",\"name\":\"Event Handler 1\",\"id\":7943,\"status\":1,\"path\":\"\",\"order_index\":0},{\"type\":\"js\",\"modified_user_id\":214382,\"channels\":\"eh-channel-2\",\"event\":\"js-before-publish\",\"log_level\":\"debug\",\"test_payload\":null,\"created_date\":\"Wed, 29 Mar 2017 13:07:46 GMT\",\"channel_groups\":null,\"block_id\":8538,\"state\":\"running\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #2 (altered)')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"rate\":null,\"output\":\"output-0.2979925618800803\",\"create_user_id\":214382,\"modified_date\":\"Wed, 29 Mar 2017 20:07:50 GMT\",\"name\":\"Event Handler 2\",\"id\":7944,\"status\":1,\"path\":\"\",\"order_index\":0}],\"id\":8538,\"status\":1,\"cloned_id\":null}],\"message\":\"OK\",\"status\":200}"
+                }
+            }
+        }
+    ]
+}

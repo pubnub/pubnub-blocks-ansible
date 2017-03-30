@@ -147,15 +147,11 @@ if os.path.exists(module_location) and os.path.exists(module_copy_location):
 if os.path.exists(module_copy_location):
     move(module_copy_location, module_location)
 
-# Temporary disabled service results mocking.
-exit(0)
-
 # Print out VCR operation results.
 fixtures_directory = 'tests/mock/fixtures'
-used_fixtures_directory = '/'.join([fixtures_directory, version])
-fixture_dir_files = os.listdir(used_fixtures_directory)
+fixture_dir_files = os.listdir(fixtures_directory)
 for file_name in fixture_dir_files:
-    full_path = '/'.join([used_fixtures_directory, file_name])
+    full_path = '/'.join([fixtures_directory, file_name])
     # Remove old module calls counter file.
     if file_name.endswith('.counter'):
         os.remove(full_path)
@@ -172,10 +168,12 @@ for file_name in fixture_dir_files:
                 print(log_line)
             print('{0}'.format('-' * 20))
 
+exit(0)
+
 # Normalize fixtures
 for file_name in fixture_dir_files:
     if file_name.endswith('.json'):
-        fixture_path = '/'.join([used_fixtures_directory, file_name])
+        fixture_path = '/'.join([fixtures_directory, file_name])
         with open(fixture_path, mode='rt') as fixture_file:
             fixture = fixture_file.read()
             updated_fixture_content = normalized_fixture(fixture)
@@ -200,7 +198,7 @@ for target_python_version in python_versions:
     if not os.path.exists(target_fixtures_directory):
         run('mkdir -p "{0}"'.format(target_fixtures_directory))
         for file_name in fixture_dir_files:
-            source_fixture_path = '/'.join([used_fixtures_directory, file_name])
+            source_fixture_path = '/'.join([fixtures_directory, file_name])
             if file_name.endswith('.json'):
                 replacements = {source_version: target_python_version,
                                 source_version.replace('.', ''): target_python_version.replace('.', '')}

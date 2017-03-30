@@ -1,0 +1,69 @@
+{
+    "interactions": [
+        {
+            "request": {
+                "headers": {
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "Content-Length": [
+                        "0"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ]
+                }, 
+                "body": null, 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/8538", 
+                "method": "DELETE"
+            }, 
+            "response": {
+                "headers": {
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Cache-control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Content-Length": [
+                        "38"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:08:09 GMT"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }, 
+                "body": {
+                    "string": "{\"status\":200,\"message\":\"OK\"}"
+                }, 
+                "status": {
+                    "code": 200, 
+                    "message": "OK"
+                }
+            }
+        }
+    ], 
+    "version": 1
+}

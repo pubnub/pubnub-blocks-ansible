@@ -1,0 +1,72 @@
+{
+    "interactions": [
+        {
+            "response": {
+                "status": {
+                    "message": "OK", 
+                    "code": 200
+                }, 
+                "headers": {
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:07:28 GMT"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Cache-control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Content-Length": [
+                        "308"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ]
+                }, 
+                "body": {
+                    "string": "{\"status\":200,\"message\":\"OK\",\"payload\":{\"name\":\"Ansible block\",\"block_id\":-1,\"id\":8537,\"description\":\"No description provided for this block.\",\"status\":1,\"created_date\":\"Wed, 29 Mar 2017 13:07:28 GMT\",\"create_user_id\":214382,\"key_id\":\"246021\"}}"
+                }
+            }, 
+            "request": {
+                "method": "POST", 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block", 
+                "body": "{\"name\": \"Ansible block\", \"description\": \"No description provided for this block.\", \"key_id\": 246021, \"block_id\": -1}", 
+                "headers": {
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Content-Length": [
+                        "117"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }
+            }
+        }
+    ], 
+    "version": 1
+}

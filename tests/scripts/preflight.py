@@ -9,15 +9,15 @@ import os
 # Create tests inventory file which will refer to proper Python interpreter.
 inventory_file_location = 'tests/inventory'
 if not os.path.exists(inventory_file_location):
+    interpreter = sys.executable
     python_location = to_text(run('which python')[0].strip(to_bytes('\n')))
-    inventory_file_content = '[blocks]\nlocalhost ansible_connection=local ansible_python_interpreter={0}'
-    run('echo \'{0}\' >{1}'.format(inventory_file_content, inventory_file_location).format(sys.executable))
-
-# Temporary disabled service results mocking.
-exit(0)
+    content = '[blocks]\nlocalhost ansible_connection=local ' \
+              'ansible_python_interpreter={0}'.format(interpreter)
+    run('echo \'{0}\' >{1}'.format(content, inventory_file_location))
 
 # Prepare fixtures directory
-fixtures_directory = 'tests/mock/fixtures/{0}'.format(version)
+# fixtures_directory = 'tests/mock/fixtures/{0}'.format(version)
+fixtures_directory = 'tests/mock/fixtures'
 if not os.path.exists(fixtures_directory):
     run('mkdir -p "{0}"'.format(fixtures_directory))
 

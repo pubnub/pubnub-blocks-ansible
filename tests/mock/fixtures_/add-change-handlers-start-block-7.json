@@ -1,0 +1,72 @@
+{
+    "version": 1, 
+    "interactions": [
+        {
+            "response": {
+                "headers": {
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "Cache-control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Content-Length": [
+                        "38"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:07:50 GMT"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ]
+                }, 
+                "status": {
+                    "code": 200, 
+                    "message": "OK"
+                }, 
+                "body": {
+                    "string": "{\"message\":\"OK\",\"status\":200}"
+                }
+            }, 
+            "request": {
+                "headers": {
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "Content-Length": [
+                        "539"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ]
+                }, 
+                "body": "{\"output\": \"output-0.2979925618800803\", \"event\": \"js-before-publish\", \"name\": \"Event Handler 2\", \"code\": \"export default (request) => {\\n    console.log('Event Handler #2 (altered)')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\", \"log_level\": \"debug\", \"id\": 7944, \"key_id\": 246021, \"block_id\": 8538, \"type\": \"js\", \"channels\": \"eh-channel-2\"}", 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/event_handler/7944", 
+                "method": "PUT"
+            }
+        }
+    ]
+}

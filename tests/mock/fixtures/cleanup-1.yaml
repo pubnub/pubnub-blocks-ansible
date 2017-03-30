@@ -1,0 +1,90 @@
+interactions:
+- request:
+    body: '{"password": "<secret-value>", "email": "<secret-value>"}'
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip,deflate']
+      Connection: [keep-alive]
+      Content-Length: ['72']
+      Content-Type: [application/json]
+      User-Agent: [python-requests/2.13.0]
+    method: POST
+    uri: https://admin.pubnub.com/api/me
+  response:
+    body: {string: '{"result":{"user_id":214382,"user_roles":{"is_internal_admin":false,"is_internal_operator":false,"is_internal_viewer":false,"roles":{}},"role":"user","user":{"email":"<secret-value>","login_attempts":0,"id":214382,"modified":1486733764,"properties":{"acct_type":null,"phone":"<secret-value>","twitter":"<secret-value>","first":"<secret-value>","xsite_google:oauth_token":"<secret-value>","xsite_google:oauth_token_secret":"<secret-value>","customer_recommendation_vote":null,"last":"<secret-value>","customer_use_case":"User
+        dismissed.","premium_sla":"False","xsite_google:id":"<secret-value>"},"login_attempts_last":null,"created":1355415945,"status":1},"token":"<secret-value>","status":1}}'}
+    headers:
+      Cache-Control: ['no-cache, no-store', no-cache="set-cookie"]
+      Connection: [keep-alive]
+      Content-Type: [application/json]
+      Date: ['Wed, 29 Mar 2017 20:53:55 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      content-length: ['1002']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip,deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+      X-Session-Token: [<secret-header>]
+    method: GET
+    uri: https://admin.pubnub.com/api/accounts?user_id=214382
+  response:
+    body: {string: '{"result":{"permissions":{},"accounts":[{"protected":0,"owner_id":214382,"modified":null,"id":214382,"properties":{"company":"home"},"created":1355415945,"dates":{"company":{"modified":null,"created":1490820836}}}]}}'}
+    headers:
+      Cache-Control: ['no-cache, no-store', no-cache="set-cookie"]
+      Cache-control: ['no-cache, no-store', no-cache="set-cookie"]
+      Connection: [keep-alive]
+      Content-Length: ['406']
+      Content-Type: [application/json]
+      Date: ['Wed, 29 Mar 2017 20:53:56 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip,deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+      X-Session-Token: [<secret-header>]
+    method: GET
+    uri: https://admin.pubnub.com/api/apps?owner_id=214382
+  response:
+    body: {string: '{"total":1,"result":[{"name":"Ansible-Block-Module","keys":[{"product_id":12,"id":246021,"modified":1484052329,"app_id":349017,"secret_key":"<secret-value>","status":1,"expires":null,"properties":{"presence":1,"bill_by_uuid":1,"multiplexing":1,"name":"Travis-CI","blocks":1,"wildcardsubscribe":1,"realtime_analytics_channel":"62BkXcCI5WIt9fXLAoLm","presence_deltas":1,"channelgroup_index_disable":1},"dates":{"presence":{"created":1490136156,"modified":null},"bill_by_uuid":{"created":1484081129,"modified":null},"multiplexing":{"created":1488915405,"modified":null},"name":{"created":1484081129,"modified":1484081145},"blocks":{"created":1484081157,"modified":null},"wildcardsubscribe":{"created":1488915405,"modified":null},"realtime_analytics_channel":{"created":1484081129,"modified":null},"presence_deltas":{"created":1490136156,"modified":null},"channelgroup_index_disable":{"created":1484081145,"modified":null}},"subscribe_key":"<secret-value>","created":1484052329,"publish_key":"<secret-value>"}],"owner_id":214382,"id":349017,"modified":1484084657,"properties":{"stats_channel":"GYFzL6xXXcUDAP81ICyP"},"dates":{"stats_channel":{"created":1484081129,"modified":null}},"created":null,"status":1}]}'}
+    headers:
+      Cache-Control: ['no-cache, no-store', no-cache="set-cookie"]
+      Connection: [keep-alive]
+      Content-Type: [application/json]
+      Date: ['Wed, 29 Mar 2017 20:53:56 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      content-length: ['2311']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip,deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+      X-Session-Token: [<secret-header>]
+    method: GET
+    uri: https://admin.pubnub.com/api/v1/blocks/key/246021/block
+  response:
+    body: {string: '{"payload":[],"status":200,"message":"OK"}'}
+    headers:
+      Cache-Control: ['no-cache, no-store', no-cache="set-cookie"]
+      Cache-control: ['no-cache, no-store', no-cache="set-cookie"]
+      Connection: [keep-alive]
+      Content-Length: ['55']
+      Content-Type: [application/json]
+      Date: ['Wed, 29 Mar 2017 20:53:57 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+    status: {code: 200, message: OK}
+version: 1

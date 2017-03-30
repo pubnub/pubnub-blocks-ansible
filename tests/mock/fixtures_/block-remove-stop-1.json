@@ -1,0 +1,492 @@
+{
+    "interactions": [
+        {
+            "response": {
+                "headers": {
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:07:59 GMT"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "content-length": [
+                        "1105"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }, 
+                "status": {
+                    "message": "OK", 
+                    "code": 200
+                }, 
+                "body": {
+                    "string": "{\"result\":{\"expires\":1490845076,\"role\":\"user\",\"storage\":null,\"user\":{\"properties\":{\"customer_use_case\":\"User dismissed.\",\"acct_type\":null,\"xsite_google:oauth_token_secret\":\"<secret-value>\",\"xsite_google:id\":\"<secret-value>\",\"phone\":\"<secret-value>\",\"last\":\"<secret-value>\",\"first\":\"<secret-value>\",\"premium_sla\":\"False\",\"customer_recommendation_vote\":null,\"twitter\":\"<secret-value>\",\"xsite_google:oauth_token\":\"<secret-value>\"},\"login_attempts_last\":null,\"id\":214382,\"status\":1,\"modified\":1486733764,\"email\":\"<secret-value>\",\"created\":1355415945,\"login_attempts\":0},\"status\":1,\"token\":\"<secret-value>\",\"modified\":1490843276,\"user_roles\":{\"roles\":{},\"is_internal_admin\":false,\"is_internal_operator\":false,\"is_internal_viewer\":false},\"created\":1490842724,\"user_id\":214382}}"
+                }
+            }, 
+            "request": {
+                "method": "POST", 
+                "uri": "https://admin.pubnub.com/api/me", 
+                "body": "{\"password\": \"<secret-value>\", \"email\": \"<secret-value>\"}", 
+                "headers": {
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "Content-Length": [
+                        "72"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }
+            }
+        }, 
+        {
+            "response": {
+                "headers": {
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:08:00 GMT"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Content-Length": [
+                        "406"
+                    ], 
+                    "Cache-control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }, 
+                "status": {
+                    "message": "OK", 
+                    "code": 200
+                }, 
+                "body": {
+                    "string": "{\"result\":{\"accounts\":[{\"protected\":0,\"created\":1355415945,\"owner_id\":214382,\"id\":214382,\"properties\":{\"company\":\"home\"},\"dates\":{\"company\":{\"created\":1490818080,\"modified\":null}},\"modified\":null}],\"permissions\":{}}}"
+                }
+            }, 
+            "request": {
+                "method": "GET", 
+                "uri": "https://admin.pubnub.com/api/accounts?user_id=214382", 
+                "body": null, 
+                "headers": {
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ]
+                }
+            }
+        }, 
+        {
+            "response": {
+                "headers": {
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:08:01 GMT"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "content-length": [
+                        "2311"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }, 
+                "status": {
+                    "message": "OK", 
+                    "code": 200
+                }, 
+                "body": {
+                    "string": "{\"result\":[{\"name\":\"Ansible-Block-Module\",\"properties\":{\"stats_channel\":\"GYFzL6xXXcUDAP81ICyP\"},\"owner_id\":214382,\"id\":349017,\"status\":1,\"created\":null,\"dates\":{\"stats_channel\":{\"created\":1484081129,\"modified\":null}},\"modified\":1484084657,\"keys\":[{\"expires\":null,\"app_id\":349017,\"status\":1,\"secret_key\":\"<secret-value>\",\"modified\":1484052329,\"publish_key\":\"<secret-value>\",\"created\":1484052329,\"id\":246021,\"properties\":{\"name\":\"Travis-CI\",\"blocks\":1,\"presence\":1,\"bill_by_uuid\":1,\"multiplexing\":1,\"channelgroup_index_disable\":1,\"presence_deltas\":1,\"wildcardsubscribe\":1,\"realtime_analytics_channel\":\"62BkXcCI5WIt9fXLAoLm\"},\"product_id\":12,\"dates\":{\"name\":{\"created\":1484081129,\"modified\":1484081145},\"blocks\":{\"created\":1484081157,\"modified\":null},\"presence\":{\"created\":1490136156,\"modified\":null},\"bill_by_uuid\":{\"created\":1484081129,\"modified\":null},\"multiplexing\":{\"created\":1488915405,\"modified\":null},\"channelgroup_index_disable\":{\"created\":1484081145,\"modified\":null},\"presence_deltas\":{\"created\":1490136156,\"modified\":null},\"wildcardsubscribe\":{\"created\":1488915405,\"modified\":null},\"realtime_analytics_channel\":{\"created\":1484081129,\"modified\":null}},\"subscribe_key\":\"<secret-value>\"}]}],\"total\":1}"
+                }
+            }, 
+            "request": {
+                "method": "GET", 
+                "uri": "https://admin.pubnub.com/api/apps?owner_id=214382", 
+                "body": null, 
+                "headers": {
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }
+            }
+        }, 
+        {
+            "response": {
+                "headers": {
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:08:02 GMT"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "content-length": [
+                        "2775"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }, 
+                "status": {
+                    "message": "OK", 
+                    "code": 200
+                }, 
+                "body": {
+                    "string": "{\"message\":\"OK\",\"payload\":[{\"state\":\"running\",\"status\":1,\"sub_key\":\"sub-c-ab078c88-d732-11e6-90f4-0619f8945a4f\",\"event_handlers\":[{\"state\":\"running\",\"channel_groups\":null,\"status\":1,\"test_payload\":null,\"log_level\":\"debug\",\"type\":\"js\",\"block_id\":8538,\"output\":\"output-0.634650705378397\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #1')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"create_user_id\":214382,\"name\":\"Event Handler 1\",\"order_index\":0,\"created_date\":\"Wed, 29 Mar 2017 13:07:45 GMT\",\"id\":7943,\"path\":\"\",\"event\":\"js-after-publish\",\"channels\":\"eh-channel-1\",\"modified_user_id\":214382,\"modified_date\":\"Wed, 29 Mar 2017 20:07:48 GMT\",\"rate\":null},{\"state\":\"running\",\"channel_groups\":null,\"status\":1,\"test_payload\":null,\"log_level\":\"debug\",\"type\":\"js\",\"block_id\":8538,\"output\":\"output-0.2979925618800803\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #2 (altered)')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"create_user_id\":214382,\"name\":\"Event Handler 2\",\"order_index\":0,\"created_date\":\"Wed, 29 Mar 2017 13:07:46 GMT\",\"id\":7944,\"path\":\"\",\"event\":\"js-before-publish\",\"channels\":\"eh-channel-2\",\"modified_user_id\":214382,\"modified_date\":\"Wed, 29 Mar 2017 20:07:50 GMT\",\"rate\":null}],\"intended_state\":\"running\",\"modified_date\":\"Wed, 29 Mar 2017 20:07:52 GMT\",\"state_change_date\":\"Wed, 29 Mar 2017 20:07:52 GMT\",\"icon_url\":null,\"description\":\"No description provided for this block.\",\"name\":\"Ansible block\",\"cloned_id\":null,\"created_date\":\"Wed, 29 Mar 2017 13:07:44 GMT\",\"id\":8538,\"pub_key\":\"pub-c-883f350c-a134-487a-822c-572e873f7ac9\",\"key_id\":246021,\"modified_user_id\":214382,\"create_user_id\":214382,\"template\":0}],\"status\":200}"
+                }
+            }, 
+            "request": {
+                "method": "GET", 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block", 
+                "body": null, 
+                "headers": {
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ]
+                }
+            }
+        }, 
+        {
+            "response": {
+                "headers": {
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:08:04 GMT"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Content-Length": [
+                        "38"
+                    ], 
+                    "Cache-control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }, 
+                "status": {
+                    "message": "OK", 
+                    "code": 200
+                }, 
+                "body": {
+                    "string": "{\"message\":\"OK\",\"status\":200}"
+                }
+            }, 
+            "request": {
+                "method": "POST", 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/8538/stop", 
+                "body": "{\"block_id\": 8538}", 
+                "headers": {
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Content-Length": [
+                        "18"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }
+            }
+        }, 
+        {
+            "response": {
+                "headers": {
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:08:05 GMT"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "content-length": [
+                        "2649"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }, 
+                "status": {
+                    "message": "OK", 
+                    "code": 200
+                }, 
+                "body": {
+                    "string": "{\"message\":\"OK\",\"payload\":[{\"state\":\"stopped\",\"status\":1,\"event_handlers\":[{\"state\":\"stopped\",\"channel_groups\":null,\"status\":1,\"test_payload\":null,\"log_level\":\"debug\",\"type\":\"js\",\"modified_date\":\"Wed, 29 Mar 2017 20:07:48 GMT\",\"output\":\"output-0.634650705378397\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #1')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"create_user_id\":214382,\"block_id\":8538,\"order_index\":0,\"created_date\":\"Wed, 29 Mar 2017 13:07:45 GMT\",\"id\":7943,\"path\":\"\",\"event\":\"js-after-publish\",\"channels\":\"eh-channel-1\",\"modified_user_id\":214382,\"name\":\"Event Handler 1\",\"rate\":null},{\"state\":\"stopped\",\"channel_groups\":null,\"status\":1,\"test_payload\":null,\"log_level\":\"debug\",\"type\":\"js\",\"modified_date\":\"Wed, 29 Mar 2017 20:07:50 GMT\",\"output\":\"output-0.2979925618800803\",\"code\":\"export default (request) => {\\n    console.log('Event Handler #2 (altered)')\\n    const pubnub = require('pubnub');\\n    const kvstore = require('kvstore');\\n    const xhr = require('xhr');\\n\\n    console.log(request); // Log the request envelope passed\\n    return request.ok(); // Return a promise when you're done\\n}\",\"create_user_id\":214382,\"block_id\":8538,\"order_index\":0,\"created_date\":\"Wed, 29 Mar 2017 13:07:46 GMT\",\"id\":7944,\"path\":\"\",\"event\":\"js-before-publish\",\"channels\":\"eh-channel-2\",\"modified_user_id\":214382,\"name\":\"Event Handler 2\",\"rate\":null}],\"intended_state\":\"stopped\",\"modified_date\":\"Wed, 29 Mar 2017 20:08:04 GMT\",\"state_change_date\":\"Wed, 29 Mar 2017 20:08:04 GMT\",\"icon_url\":null,\"description\":\"No description provided for this block.\",\"name\":\"Ansible block\",\"cloned_id\":null,\"created_date\":\"Wed, 29 Mar 2017 13:07:44 GMT\",\"id\":8538,\"template\":0,\"key_id\":246021,\"modified_user_id\":214382,\"create_user_id\":214382}],\"status\":200}"
+                }
+            }, 
+            "request": {
+                "method": "GET", 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/block/8538", 
+                "body": null, 
+                "headers": {
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ]
+                }
+            }
+        }, 
+        {
+            "response": {
+                "headers": {
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:08:06 GMT"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Content-Length": [
+                        "38"
+                    ], 
+                    "Cache-control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }, 
+                "status": {
+                    "message": "OK", 
+                    "code": 200
+                }, 
+                "body": {
+                    "string": "{\"message\":\"OK\",\"status\":200}"
+                }
+            }, 
+            "request": {
+                "method": "DELETE", 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/event_handler/7943", 
+                "body": null, 
+                "headers": {
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "Content-Length": [
+                        "0"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }
+            }
+        }, 
+        {
+            "response": {
+                "headers": {
+                    "Expires": [
+                        "-1"
+                    ], 
+                    "Date": [
+                        "Wed, 29 Mar 2017 20:08:07 GMT"
+                    ], 
+                    "Cache-control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Pragma": [
+                        "no-cache"
+                    ], 
+                    "Content-Length": [
+                        "38"
+                    ], 
+                    "Cache-Control": [
+                        "no-cache, no-store", 
+                        "no-cache=\"set-cookie\""
+                    ], 
+                    "Content-Type": [
+                        "application/json"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }, 
+                "status": {
+                    "message": "OK", 
+                    "code": 200
+                }, 
+                "body": {
+                    "string": "{\"message\":\"OK\",\"status\":200}"
+                }
+            }, 
+            "request": {
+                "method": "DELETE", 
+                "uri": "https://admin.pubnub.com/api/v1/blocks/key/246021/event_handler/7944", 
+                "body": null, 
+                "headers": {
+                    "Accept": [
+                        "application/json"
+                    ], 
+                    "User-Agent": [
+                        "python-requests/2.13.0"
+                    ], 
+                    "Content-Length": [
+                        "0"
+                    ], 
+                    "Accept-Encoding": [
+                        "gzip,deflate"
+                    ], 
+                    "X-Session-Token": [
+                        "<secret-header>"
+                    ], 
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                }
+            }
+        }
+    ], 
+    "version": 1
+}

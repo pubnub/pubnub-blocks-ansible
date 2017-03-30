@@ -1,38 +1,13 @@
 #!/usr/bin/python
 # coding: utf-8
 from vcr.stubs import VCRHTTPSConnection
-from vcr.serializers import jsonserializer
-from vcr.serializers import compat
 from ansible.module_utils.six import PY3
 from ansible.module_utils._text import to_bytes, to_text
 import ansible.module_utils.urls
 import logging
 import json
-import six
 import vcr
 import os
-
-
-class FixtureSerializer(object):
-    """Serialize and deserialize request fixtures."""
-
-    @staticmethod
-    def deserialize(cassette_string):
-        data = jsonserializer.deserialize(cassette_string=cassette_string)
-        if PY3:
-            for interaction in data['interactions']:
-                response_body = interaction['response']['body']['string']
-                interaction['response']['body']['string'] = to_bytes(response_body)
-            print('HELLO FOR PYTHON3: {0}'.format(data))
-            return data
-        else:
-            return data
-
-    @staticmethod
-    def serialize(cassette_dict):
-        print('SERIALIZE NOW!')
-        return jsonserializer.serialize(cassette_dict=cassette_dict)
-
 
 class VCRModule(object):
     """Module allow to add mocking to any classes which perform network requests.
@@ -41,7 +16,7 @@ class VCRModule(object):
     class method to send all requests through mocking library.
     """
 
-    def __init__(self, log_file_path, fixtures_dir, fixture_name, fixture_store_format='json',
+    def __init__(self, log_file_path, fixtures_dir, fixture_name, fixture_store_format='yaml',
                  create_fixture=True, redundant_headers_fields=None, secret_headers_fields=None,
                  secret_post_body_fields=None, secret_response_body_fields=None):
         """Construct account model using service response.
@@ -123,7 +98,7 @@ class VCRModule(object):
 
         return pn_vcr
 
-    def inject(self, cls, function_name):
+    def inject(self, function_name):
         """Inject mocking tool into target class.
 
         Method will create wrapper for function which is passed by name and replace function for specified
@@ -135,7 +110,8 @@ class VCRModule(object):
         """
         VCRModule._increase_fixture_sequence_number(counter_dir=self._fixtures_dir,
                                                     fixture_name=self._fixture_name)
-        setattr(cls, function_name, self._vcr().use_cassette(getattr(cls, function_name)))
+        import pubnub_blocks_client.core.api as api
+        setattr(api, function_name, self._vcr().use_cassette(getattr(api, function_name)))
 
     @staticmethod
     def _cassette_name_generator(path, name):
@@ -230,7 +206,11 @@ class VCRModule(object):
             json_response = json.loads(to_text(response['body']['string']))
             VCRModule._replace_values_for_keys(obj=json_response, keys=secret_fields,
                                                new_value='<secret-value>')
-            response['body']['string'] = json.dumps(json_response, separators=(',', ':'))
+            string_body = json.dumps(json_response, separators=(',', ':'))
+            if not PY3:
+                response['body']['string'] = string_body
+            else:
+                response['body']['string'] = to_bytes(string_body)
 
             return response
 
