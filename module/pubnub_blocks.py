@@ -31,7 +31,7 @@ module: pubnub_blocks
 version_added: '2.2'
 short_description: PubNub blocks management module.
 description:
-  -- "This module allows Ansible to interface with the PubNub BLOCKS
+  - "This module allows Ansible to interface with the PubNub BLOCKS
   infrastructure by providing the following operations: create / remove,
   start / stop and rename for blocks and create / modify / remove for event
   handlers"
@@ -65,6 +65,7 @@ options:
     description:
       - "Name of PubNub account for from which C(application) will be used to
       manage blocks."
+      - "User\'s account will be used if value not set or empty."
     required: false
   application:
     description:
