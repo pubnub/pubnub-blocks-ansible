@@ -20,20 +20,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-ANSIBLE_METADATA = {'status': ['preview'],
-                    'supported_by': 'committer',
-                    'version': '1.0'}
+ANSIBLE_METADATA = {'metadata_version': '1.0',
+                    'status': ['preview'],
+                    'supported_by': 'community'}
 
 
 DOCUMENTATION = '''
 ---
 module: pubnub_blocks
 version_added: '2.2'
-short_description: 3.
+short_description: PubNub blocks management module.
 description:
-  - "This module allows Ansible to interface with the PubNub BLOCKS
-  infrastructure with functionality to create, remove, start, stop rename
-  blocks and create, modify and remove event handlers"
+  -- "This module allows Ansible to interface with the PubNub BLOCKS
+  infrastructure by providing the following operations: create / remove,
+  start / stop and rename for blocks and create / modify / remove for event
+  handlers"
 author:
   - PubNub <support@pubnub.com> (@pubnub)
   - Sergey Mamontov <sergey@pubnub.com> (@parfeon)
@@ -79,8 +80,8 @@ options:
       - "Intended block state after event handlers creation / update process
       will be completed."
     required: false
-    default: \'started\'
-    choices: [\'started\', \'stopped\', \'present\', \'absent\']
+    default: 'started'
+    choices: ['started', 'stopped', 'present', 'absent']
   name:
     description:
       - Name of managed block which will be later visible on admin.pubnub.com.
@@ -91,7 +92,7 @@ options:
         admin.pubnub.com. Used only if block doesn\'t exists and won\'t change
         description for existing block."
     required: false
-    default: \'New block\'
+    default: 'New block'
   event_handlers:
     description:
       - "List of event handlers which should be updated for specified block
@@ -116,7 +117,7 @@ options:
     default: []
   changes:
     description:
-      - "List of fields which should be changed by block itself (doesn\'t
+      - "List of fields which should be changed by block itself (doesn't
       affect any event handlers)."
       - "Possible options for change is: C(name)."
     required: false
@@ -172,50 +173,50 @@ EXAMPLES = '''
 
 # Multiple module calls with cached result passing
 - name: Create '{{ block_name }}' block
-      register: module_cache
-      pubnub_blocks:
-        email: '{{ email }}'
-        password: '{{ password }}'
-        application: '{{ app_name }}'
-        keyset: '{{ keyset_name }}'
-        name: '{{ block_name }}'
-        state: present
-    - name: Add '{{ event_handler_1_name }}' handler to '{{ block_name }}'
-      register: module_cache
-      pubnub_blocks:
-        cache: '{{ module_cache }}'
-        application: '{{ app_name }}'
-        keyset: '{{ keyset_name }}'
-        name: '{{ block_name }}'
-        state: present
-        event_handlers:
-          -
-            src: '{{ path_to_handler_1_source }}'
-            name: '{{ event_handler_1_name }}'
-            channels: '{{ event_handler_1_channel }}'
-            event: 'js-before-publish'
-    - name: Add '{{ event_handler_2_name }}' handler to '{{ block_name }}'
-      register: module_cache
-      pubnub_blocks:
-        cache: '{{ module_cache }}'
-        application: '{{ app_name }}'
-        keyset: '{{ keyset_name }}'
-        name: '{{ block_name }}'
-        state: present
-        event_handlers:
-          -
-            src: '{{ path_to_handler_2_source }}'
-            name: '{{ event_handler_2_name }}'
-            channels: '{{ event_handler_2_channel }}'
-            event: 'js-before-publish'
-    - name: Start '{{ block_name }}' block
-      register: module_cache
-      pubnub_blocks:
-        cache: '{{ module_cache }}'
-        application: '{{ app_name }}'
-        keyset: '{{ keyset_name }}'
-        name: '{{ block_name }}'
-        state: started
+  register: module_cache
+  pubnub_blocks:
+    email: '{{ email }}'
+    password: '{{ password }}'
+    application: '{{ app_name }}'
+    keyset: '{{ keyset_name }}'
+    name: '{{ block_name }}'
+    state: present
+- name: Add '{{ event_handler_1_name }}' handler to '{{ block_name }}'
+  register: module_cache
+  pubnub_blocks:
+    cache: '{{ module_cache }}'
+    application: '{{ app_name }}'
+    keyset: '{{ keyset_name }}'
+    name: '{{ block_name }}'
+    state: present
+    event_handlers:
+      -
+        src: '{{ path_to_handler_1_source }}'
+        name: '{{ event_handler_1_name }}'
+        channels: '{{ event_handler_1_channel }}'
+        event: 'js-before-publish'
+- name: Add '{{ event_handler_2_name }}' handler to '{{ block_name }}'
+  register: module_cache
+  pubnub_blocks:
+    cache: '{{ module_cache }}'
+    application: '{{ app_name }}'
+    keyset: '{{ keyset_name }}'
+    name: '{{ block_name }}'
+    state: present
+    event_handlers:
+      -
+        src: '{{ path_to_handler_2_source }}'
+        name: '{{ event_handler_2_name }}'
+        channels: '{{ event_handler_2_channel }}'
+        event: 'js-before-publish'
+- name: Start '{{ block_name }}' block
+  register: module_cache
+  pubnub_blocks:
+    cache: '{{ module_cache }}'
+    application: '{{ app_name }}'
+    keyset: '{{ keyset_name }}'
+    name: '{{ block_name }}'
+    state: started
 '''
 
 RETURN = '''
