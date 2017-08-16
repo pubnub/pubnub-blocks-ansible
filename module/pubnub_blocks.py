@@ -99,17 +99,24 @@ options:
     description:
       - "List of event handlers which should be updated for specified block
       C(name)."
-      - "Each entry for new event handler should contain: C(name), C(src),
-      C(channels), C(event). C(name) used as event handler name which can be
-      used later to make changes to it."
+      - "Each entry for new event handler should contain: C(name), C(src), 
+      C(event), C(channels) or C(channels) (depending from chosen C(event) 
+      type). C(name) used as event handler name which can be used later to 
+      make changes to it."
       - C(src) is full path to file with event handler code.
       - "C(channels) is name of channel from which event handler is waiting
-      for events."
+      for events (should be set if C(event) is set to one of: 
+      I(js-before-publish), I(js-after-publish), I(js-after-presence))."
+      - "C(path) is REST URI path part which is used to trigger event handler
+      by calling URL of next format: 
+      https://pubsub.pubnub.com/v1/blocks/sub-key/<sub-key>/<path> (should be
+      set if C(event) is set to I(js-on-rest))."
       - "C(event) is type of event which is able to trigger event handler:
-      I(js-before-publish), I(js-after-publish), I(js-after-presence)."
+      I(js-before-publish), I(js-after-publish), I(js-after-presence), 
+      I(js-on-rest)."
       - "Each entry for existing handlers should contain C(name) (so target
-      handler can be identified). Rest parameters (C(src), C(channels) and
-      C(event)) can be added if changes required for them."
+      handler can be identified). Rest parameters (C(src), C(channels), 
+      C(path) and C(event)) can be added if changes required for them."
       - "It is possible to rename event handler by adding C(changes) key to
       event handler payload and pass dictionary, which will contain single key
       C(name), where new name should be passed."
@@ -149,6 +156,21 @@ EXAMPLES = '''
         name: '{{ handler_name }}'
         event: 'js-before-publish'
         channels: '{{ handler_channel }}'
+        
+# On request event handler create example.
+- name: Create single event handler
+  pubnub_blocks:
+    email: '{{ email }}'
+    password: '{{ password }}'
+    application: '{{ app_name }}'
+    keyset: '{{ keyset_name }}'
+    name: '{{ block_name }}'
+    event_handlers:
+      -
+        src: '{{ path_to_handler_source }}'
+        name: '{{ handler_name }}'
+        event: 'js-on-rest'
+        path: '{{ handler_rest_path }}'
 
 # Change event handler trigger event type.
 - name: Change event handler 'event'
@@ -254,19 +276,21 @@ except ImportError:
     exceptions = None
 
 
-def pubnub_user(module):
+def pubnub_user(ansible_module):
     """Create and configure user model if it possible.
 
-    :type module:  AnsibleModule
-    :param module: Reference on module which contain module launch
-                   information and status report methods.
+    :type ansible_module:  AnsibleModule
+    :param ansible_module: Reference on module which contain module
+                           launch information and status report
+                           methods.
 
     :rtype:  User
-    :return: Reference on initialized and ready to use user or 'None' in
-             case if not all required information has been passed to block.
+    :return: Reference on initialized and ready to use user or 'None'
+             in case if not all required information has been passed to
+             block.
     """
     user = None
-    params = module.params
+    params = ansible_module.params
 
     if params.get('cache') and params['cache'].get('module_cache'):
         cache = params['cache']['module_cache']
@@ -278,27 +302,30 @@ def pubnub_user(module):
         err_msg = 'It looks like not account credentials has been passed or ' \
                   '\'cache\' field doesn\'t have result of previous module ' \
                   'call.'
-        module.fail_json(msg='Missing account credentials.',
-                         description=err_msg, changed=False)
+        ansible_module.fail_json(msg='Missing account credentials.',
+                                 description=err_msg, changed=False)
 
     return user
 
 
-def pubnub_account(module, user):
+def pubnub_account(ansible_module, user):
     """Create and configure account if it is possible.
 
-    :type module:  AnsibleModule
-    :param module: Reference on module which contain module launch
-                   information and status report methods.
-    :type user:    User
-    :param user:   Reference on authorized user for which one of accounts
-                   should be used during manipulations with block.
+    :type ansible_module:  AnsibleModule
+    :param ansible_module: Reference on module which contain module
+                           launch information and status report
+                           methods.
+    :type user:            User
+    :param user:           Reference on authorized user for which one
+                           of accounts should be used during
+                           manipulations with block.
 
     :rtype:  Account
-    :return: Reference on initialized and ready to use account or 'None' in
-             case if not all required information has been passed to block.
+    :return: Reference on initialized and ready to use account or
+             'None' in case if not all required information has been
+             passed to block.
     """
-    params = module.params
+    params = ansible_module.params
     if params.get('account'):
         account_name = params.get('account')
         account = user.account(name=params.get('account'))
@@ -306,117 +333,127 @@ def pubnub_account(module, user):
             err_frmt = 'It looks like there is no \'{0}\' account for ' \
                        'authorized user. Please make sure what correct ' \
                        'name has been passed during module configuration.'
-            module.fail_json(msg='Missing account.',
-                             description=err_frmt.format(account_name),
-                             changed=False)
+            exc_descr = err_frmt.format(account_name)
+            ansible_module.fail_json(msg='Missing account.',
+                                     description=exc_descr, changed=False)
     else:
         account = user.accounts()[0]
 
     return account
 
 
-def pubnub_application(module, account):
+def pubnub_application(ansible_module, account):
     """Retrieve reference on target application from account model.
 
     NOTE: In case if account authorization will fail or there is no
     application with specified name, module will exit with error.
-    :type module:   AnsibleModule
-    :param module:  Reference on module which contain module launch
-                    information and status report methods.
-    :type account:  Account
-    :param account: Reference on PubNub account model from which reference
-                    on application should be fetched.
+
+    :type ansible_module:  AnsibleModule
+    :param ansible_module: Reference on module which contain module
+                           launch information and status report methods.
+    :type account:         Account
+    :param account:        Reference on PubNub account model from
+                           which reference on application should be
+                           fetched.
 
     :rtype:  Application
-    :return: Reference on initialized and ready to use application model.
+    :return: Reference on initialized and ready to use application
+             model.
     """
     application = None
-    params = module.params
+    params = ansible_module.params
     try:
         application = account.application(params['application'])
     except (exceptions.AccountError, exceptions.GeneralPubNubError) as exc:
         exc_msg = _failure_title_from_exception(exc)
         exc_descr = exc.message if hasattr(exc, 'message') else exc.args[0]
-        module.fail_json(msg=exc_msg, description=exc_descr,
-                         changed=account.changed,
-                         module_cache=dict(account))
+        ansible_module.fail_json(msg=exc_msg, description=exc_descr,
+                                 changed=account.changed,
+                                 module_cache=dict(account))
 
     if application is None:
         err_fmt = 'There is no \'{0}\' application for {1}. Make sure what ' \
                   'correct application name has been passed. If application ' \
                   'doesn\'t exist you can create it on admin.pubnub.com.'
         email = account.owner.email
-        module.fail_json(msg=err_fmt.format(params['application'], email),
-                         changed=account.changed, module_cache=dict(account))
+        exc_descr = err_fmt.format(params['application'], email)
+        ansible_module.fail_json(msg=exc_descr, changed=account.changed,
+                                 module_cache=dict(account))
 
     return application
 
 
-def pubnub_keyset(module, account, application):
+def pubnub_keyset(ansible_module, account, application):
     """Retrieve reference on target keyset from application model.
 
     NOTE: In case if there is no keyset with specified name, module will
     exit with error.
-    :type module:       AnsibleModule
-    :param module:      Reference on module which contain module launch
-                        information and status report methods.
-    :type account:      Account
-    :param account:     Reference on PubNub account model which will be
-                        used in case of error to export cached data.
-    :type application:  Application
-    :param application: Reference on PubNub application model from which
-                        reference on keyset should be fetched.
+
+    :type ansible_module:  AnsibleModule
+    :param ansible_module: Reference on module which contain module
+                           launch information and status report methods.
+    :type account:         Account
+    :param account:        Reference on PubNub account model which will
+                           be used in case of error to export cached
+                           data.
+    :type application:     Application
+    :param application:    Reference on PubNub application model from
+                           which reference on keyset should be fetched.
 
     :rtype:  Keyset
     :return: Reference on initialized and ready to use keyset model.
     """
-    params = module.params
+    params = ansible_module.params
     keyset = application.keyset(params['keyset'])
     if keyset is None:
         err_fmt = 'There is no \'{0}\' keyset for \'{1}\' application. Make ' \
                   'sure what correct keyset name has been passed. If keyset ' \
                   'doesn\'t exist you can create it on admin.pubnub.com.'
-        module.fail_json(msg=err_fmt.format(params['keyset'],
-                                            application.name),
-                         changed=account.changed, module_cache=dict(account))
+        exc_descr = err_fmt.format(params['keyset'], application.name)
+        ansible_module.fail_json(msg=exc_descr, changed=account.changed,
+                                 module_cache=dict(account))
 
     return keyset
 
 
-def pubnub_block(module, account, keyset):
+def pubnub_block(ansible_module, account, keyset):
     """Retrieve reference on target keyset from application model.
 
     NOTE: In case if there is no block with specified name and module
     configured to start/stop it, module will exit with error.
-    :type module:   AnsibleModule
-    :param module:  Reference on module which contain module launch
-                    information and status report methods.
-    :type account:  Account
-    :param account: Reference on PubNub account model which will be used in
-                    case of error to export cached data.
-    :type keyset:   Keyset
-    :param keyset:  Reference on keyset model from which reference on block
-                    should be fetched.
+
+    :type ansible_module:  AnsibleModule
+    :param ansible_module: Reference on module which contain module
+                           launch information and status report methods.
+    :type account:         Account
+    :param account:        Reference on PubNub account model which will
+                           be used in case of error to export cached
+                           data.
+    :type keyset:          Keyset
+    :param keyset:         Reference on keyset model from which
+                           reference on block should be fetched.
 
     :rtype:  Block
     :return: Reference on initialized and ready to use keyset model.
     """
     block = None
-    params = module.params
+    params = ansible_module.params
     try:
         block = keyset.block(params['name'])
     except (exceptions.KeysetError, exceptions.GeneralPubNubError) as exc:
         exc_msg = _failure_title_from_exception(exc)
         exc_descr = exc.message if hasattr(exc, 'message') else exc.args[0]
-        module.fail_json(msg=exc_msg, description=exc_descr,
-                         changed=account.changed, module_cache=dict(account))
+        ansible_module.fail_json(msg=exc_msg, description=exc_descr,
+                                 changed=account.changed,
+                                 module_cache=dict(account))
 
     # Report error because block doesn't exists and at the same time
     # requested to start/stop.
     if block is None and params['state'] in ['started', 'stopped']:
         block_name = params.get('name')
-        module.fail_json(msg="'{0}' block doesn't exists.".format(block_name),
-                         changed=account.changed, module_cache=dict(account))
+        exc_descr = "'{0}' block doesn't exists.".format(block_name)
+        ansible_module.fail_json(msg=exc_descr, changed=account.changed,
+                                 module_cache=dict(account))
 
     if block is None and params['state'] == 'present':
         block = Block(name=params.get('name'),
@@ -433,15 +470,19 @@ def pubnub_block(module, account, keyset):
     return block
 
 
-def pubnub_event_handler(block, data):
-    """Retrieve reference on target event handler from application model.
+def pubnub_event_handler(block, data, keyset):
+    """Retrieve reference on target event handler from application
+    model.
 
-    :type block:  Block
-    :param block: Reference on block model from which reference on event
-                  handlers should be fetched.
-    :type data:   dict
-    :param data:  Reference on dictionary which contain information about
-                  event handler and whether it should be created or not.
+    :type block:   Block
+    :param block:  Reference on block model from which reference on
+                   event handlers should be fetched.
+    :type data:    dict
+    :param data:   Reference on dictionary which contain information
+                   about event handler and whether it should be created
+                   or not.
+    :type keyset:  Keyset
+    :param keyset: Reference event's handler block keyset.
 
     :rtype:  EventHandler
     :return: Reference on initialized and ready to use event handler model.
@@ -454,15 +495,17 @@ def pubnub_event_handler(block, data):
     changed_name = (data.pop('changes').get('name')
                     if 'changes' in data else None)
     name = data.get('name') or changed_name
-    channels = data.get('channels')
+    channels = data.get('channels') or ''
+    path = data.get('path') or ''
     event = data.get('event')
     code = _content_of_file_at_path(data.get('src'))
     state = data.get('state') or 'present'
 
     # Create event handler if required.
     if event_handler is None and state == 'present':
-        event_handler = EventHandler(name=name, channels=channels, event=event,
-                                     code=code)
+        event_handler = EventHandler(name=name, channels=channels, path=path,
+                                     event=event, code=code,
+                                     sub_key=keyset.subscribe_key)
         block.add_event_handler(event_handler)
 
     # Update event handler if required.
@@ -561,23 +604,26 @@ def main():
         changes=dict(default=dict(), type='dict'),
         cache=dict(default=dict(), type='dict'),
         validate_certs=dict(default=True, type='bool'))
-    module = AnsibleModule(argument_spec=fields, supports_check_mode=True)
+    ansible_module = AnsibleModule(argument_spec=fields,
+                                   supports_check_mode=True)
 
     if not HAS_PUBNUB_BLOCKS_CLIENT:
-        module.fail_json(msg='pubnub_blocks_client required for this module.')
+        ansible_module.fail_json(msg='pubnub_blocks_client required for this '
+                                     'module.')
 
-    params = module.params
+    params = ansible_module.params
 
     # Authorize user.
-    user = pubnub_user(module)
+    user = pubnub_user(ansible_module)
     # Initialize PubNub account instance.
-    account = pubnub_account(module, user=user)
+    account = pubnub_account(ansible_module, user=user)
     # Try fetch application with which module should work.
-    application = pubnub_application(module, account=account)
+    application = pubnub_application(ansible_module, account=account)
     # Try fetch keyset with which module should work.
-    keyset = pubnub_keyset(module, account=account, application=application)
+    keyset = pubnub_keyset(ansible_module, account=account,
+                           application=application)
     # Try fetch block with which module should work.
-    block = pubnub_block(module, account=account, keyset=keyset)
+    block = pubnub_block(ansible_module, account=account, keyset=keyset)
     is_new_block = block is not None and block.uid == -1
 
     # Check whether block should be removed or not.
@@ -585,6 +631,7 @@ def main():
         keyset.remove_block(block)
         block = None
 
+    eh = None
     if block is not None:
         # Update block information if required.
         if params.get('changes') and params['changes'].get('name'):
@@ -594,7 +641,8 @@ def main():
         for event_handler_data in params.get('event_handlers') or list():
             state = event_handler_data.get('state') or 'present'
             event_handler = pubnub_event_handler(data=event_handler_data,
-                                                 block=block)
+                                                 block=block, keyset=keyset)
+            eh = event_handler
             if state == 'absent' and event_handler:
                 block.delete_event_handler(event_handler)
 
@@ -606,7 +654,7 @@ def main():
             block.stop()
 
     # Save current account state.
-    if not module.check_mode:
+    if not ansible_module.check_mode:
         try:
             account.save()
         except (exceptions.APIAccessError, exceptions.KeysetError,
@@ -616,15 +664,16 @@ def main():
             module_cache.update(dict(pnm_user=dict(user)))
             exc_msg = _failure_title_from_exception(exc)
             exc_descr = exc.message if hasattr(exc, 'message') else exc.args[0]
-            module.fail_json(msg=exc_msg, description=exc_descr,
-                             changed=account.changed,
-                             module_cache=module_cache)
+            ansible_module.fail_json(msg=exc_msg, description=exc_descr,
+                                     changed=account.changed,
+                                     module_cache=module_cache)
 
     # Report module execution results.
     module_cache = dict(account)
     module_cache.update(dict(pnm_user=dict(user)))
     changed_will_change = account.changed or account.will_change
-    module.exit_json(changed=changed_will_change, module_cache=module_cache)
+    ansible_module.exit_json(changed=changed_will_change,
+                             module_cache=module_cache)
 
 
 if __name__ == '__main__':
